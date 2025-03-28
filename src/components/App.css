@@ -1,0 +1,48 @@
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto; 
+    box-sizing: border-box; 
+  }
+  
+
+  input[type="text"], input[type="email"], textarea {
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box; 
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    margin: 0; 
+  }
+  
+  textarea {
+    resize: vertical; 
+    min-height: 120px; 
+  }
+  
+
+  button {
+    padding: 12px 20px;
+    background-color: #ff6384; 
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ff3b5c; 
+  }
+  
+  
+  h2 {
+    text-align: center;
+  }

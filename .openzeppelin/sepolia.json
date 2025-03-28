@@ -1,0 +1,965 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xF98a7F677cE887ABED858b594a0A728d84f98b38",
+      "txHash": "0x65c901de7361d6c59c92e4d4eae1eff0f6d4d21a33104f2b75dcfc4e7e15909a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x8e857937E1Fe63bf5fe709413B4521F2F4261533",
+      "txHash": "0x1f73a54ef569c6aad18e307baa3cf145b493e4755ad3ae2c585a1f190fdd21c2",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "786e6eabbdb73e50edd5af6fff565d559869bfa4707cd785d0d13022ffd5bea2": {
+      "address": "0xA1287e1f75920fBDD03785Ba29bf42fBb9dd9E1C",
+      "txHash": "0x146097863f16bcdbe7840bf1cf6c903cf654d9856550cc99685be5a8a26ea915",
+      "layout": {
+        "solcVersion": "0.8.28",
+        "storage": [
+          {
+            "label": "campaignIds",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:45"
+          },
+          {
+            "label": "campaigns",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_struct(Campaign)1445_storage)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:46"
+          },
+          {
+            "label": "userContributions",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:47"
+          },
+          {
+            "label": "campaignContributors",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:48"
+          },
+          {
+            "label": "daoTreasury",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:50"
+          },
+          {
+            "label": "aiOracle",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_contract(IAIOracle)3724",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:51"
+          },
+          {
+            "label": "quarterlyTreasuryLimit",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:58"
+          },
+          {
+            "label": "currentQuarterStart",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:59"
+          },
+          {
+            "label": "quarterlyFundsUsed",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:60"
+          },
+          {
+            "label": "isKYCVerified",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:66"
+          },
+          {
+            "label": "emergencyWithdrawalOverrides",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:67"
+          },
+          {
+            "label": "failedTransferBalances",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:520"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)24_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AccessControlStorage)34_storage": {
+            "label": "struct AccessControlUpgradeable.AccessControlStorage",
+            "members": [
+              {
+                "label": "_roles",
+                "type": "t_mapping(t_bytes32,t_struct(RoleData)24_storage)",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(InitializableStorage)211_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)151_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)296_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)24_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "hasRole",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Milestone)1408_storage)dyn_storage": {
+            "label": "struct FundingPool.Milestone[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_contract(IAIOracle)3724": {
+            "label": "contract IAIOracle",
+            "numberOfBytes": "20"
+          },
+          "t_enum(FundingType)1385": {
+            "label": "enum FundingPool.FundingType",
+            "members": [
+              "Crowdfunding",
+              "TreasuryGrant"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_enum(Status)1382": {
+            "label": "enum FundingPool.Status",
+            "members": [
+              "Pending",
+              "Approved",
+              "Rejected"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_bool))": {
+            "label": "mapping(address => mapping(uint256 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_array(t_address)dyn_storage)": {
+            "label": "mapping(uint256 => address[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Campaign)1445_storage)": {
+            "label": "mapping(uint256 => struct FundingPool.Campaign)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Campaign)1445_storage": {
+            "label": "struct FundingPool.Campaign",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "creator",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "fundingGoal",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "amountRaised",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "crowdfundedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "status",
+                "type": "t_enum(Status)1382",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "fundingType",
+                "type": "t_enum(FundingType)1385",
+                "offset": 1,
+                "slot": "6"
+              },
+              {
+                "label": "milestones",
+                "type": "t_array(t_struct(Milestone)1408_storage)dyn_storage",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "withdrawnAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "crowdfundedWithdrawnAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "projectCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "heroMediaCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "11"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "12"
+              },
+              {
+                "label": "createdAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "13"
+              },
+              {
+                "label": "applicationExpiry",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "14"
+              }
+            ],
+            "numberOfBytes": "480"
+          },
+          "t_struct(Milestone)1408_storage": {
+            "label": "struct FundingPool.Milestone",
+            "members": [
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "completedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "proofCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "rejectedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.AccessControl": [
+            {
+              "contract": "AccessControlUpgradeable",
+              "label": "_roles",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)24_storage)",
+              "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "348b05027b6f2091e5ccecb1221b4447310fdddab27500dd5a39e3d495558721": {
+      "address": "0x7030fDb08954056Db2F936572e827b97b620D8c5",
+      "txHash": "0x8a144241b1c35d2999709eb35e4046d15c0f0b752f586e34e3bf2d9e081366e5",
+      "layout": {
+        "solcVersion": "0.8.28",
+        "storage": [
+          {
+            "label": "campaignIds",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:45"
+          },
+          {
+            "label": "campaigns",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_struct(Campaign)1445_storage)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:46"
+          },
+          {
+            "label": "userContributions",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:47"
+          },
+          {
+            "label": "campaignContributors",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:48"
+          },
+          {
+            "label": "daoTreasury",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:50"
+          },
+          {
+            "label": "aiOracle",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_contract(IAIOracle)3963",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:51"
+          },
+          {
+            "label": "quarterlyTreasuryLimit",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:58"
+          },
+          {
+            "label": "currentQuarterStart",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:59"
+          },
+          {
+            "label": "quarterlyFundsUsed",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:60"
+          },
+          {
+            "label": "isKYCVerified",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:66"
+          },
+          {
+            "label": "emergencyWithdrawalOverrides",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:67"
+          },
+          {
+            "label": "failedTransferBalances",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "FundingPool",
+            "src": "contracts/FundingPool.sol:570"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)24_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AccessControlStorage)34_storage": {
+            "label": "struct AccessControlUpgradeable.AccessControlStorage",
+            "members": [
+              {
+                "label": "_roles",
+                "type": "t_mapping(t_bytes32,t_struct(RoleData)24_storage)",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(InitializableStorage)211_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)151_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)296_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)24_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "hasRole",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Milestone)1408_storage)dyn_storage": {
+            "label": "struct FundingPool.Milestone[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_contract(IAIOracle)3963": {
+            "label": "contract IAIOracle",
+            "numberOfBytes": "20"
+          },
+          "t_enum(FundingType)1385": {
+            "label": "enum FundingPool.FundingType",
+            "members": [
+              "Crowdfunding",
+              "TreasuryGrant"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_enum(Status)1382": {
+            "label": "enum FundingPool.Status",
+            "members": [
+              "Pending",
+              "Approved",
+              "Rejected"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_bool))": {
+            "label": "mapping(address => mapping(uint256 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_array(t_address)dyn_storage)": {
+            "label": "mapping(uint256 => address[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Campaign)1445_storage)": {
+            "label": "mapping(uint256 => struct FundingPool.Campaign)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Campaign)1445_storage": {
+            "label": "struct FundingPool.Campaign",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "creator",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "fundingGoal",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "amountRaised",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "crowdfundedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "status",
+                "type": "t_enum(Status)1382",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "fundingType",
+                "type": "t_enum(FundingType)1385",
+                "offset": 1,
+                "slot": "6"
+              },
+              {
+                "label": "milestones",
+                "type": "t_array(t_struct(Milestone)1408_storage)dyn_storage",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "withdrawnAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "crowdfundedWithdrawnAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "projectCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "heroMediaCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "11"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "12"
+              },
+              {
+                "label": "createdAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "13"
+              },
+              {
+                "label": "applicationExpiry",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "14"
+              }
+            ],
+            "numberOfBytes": "480"
+          },
+          "t_struct(Milestone)1408_storage": {
+            "label": "struct FundingPool.Milestone",
+            "members": [
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "completedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "proofCID",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "rejectedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.AccessControl": [
+            {
+              "contract": "AccessControlUpgradeable",
+              "label": "_roles",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)24_storage)",
+              "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:61",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

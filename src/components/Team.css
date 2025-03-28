@@ -1,0 +1,42 @@
+.founder-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .founder-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .founder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .founder-image img {
+    width: 150px; 
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #fff; 
+    object-fit: cover;
+  }
+  
+  .founder-description {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .founder-description h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .founder-description p {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #666;
+  }

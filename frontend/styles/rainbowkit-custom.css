@@ -1,0 +1,12 @@
+/* rainbowkit-custom.css */
+:root {
+    --rk-colors-accentColor: #14B8A6; /* teal to match your Navbar */
+    --rk-colors-accentColorForeground: white;
+    --rk-radii-actionButton: 8px;
+    --rk-fonts-body: "Inter", sans-serif;
+    --rk-fontSizes-body: 16px;
+  }
+  
+  [data-rk] button {
+    font-weight: bold;
+  }

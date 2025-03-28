@@ -1,0 +1,30 @@
+.about {
+    background-color: #fafafa;
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .about-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    padding: 15px 30px;
+    background-color: #ff4081;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #d81b60;
+  }

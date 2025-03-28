@@ -1,0 +1,35 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #5c6bc0, #ab47bc);  /* Smooth gradient background */
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    padding: 15px 30px;
+    background-color: #ff4081;  /* Bright call to action color */
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #d81b60;  /* Hover effect */
+  }
