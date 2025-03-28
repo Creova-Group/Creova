@@ -47,7 +47,7 @@ export default function About() {
         <VStack spacing={{ base: 8, md: 8 }} w="100%">
           <Heading
             as="h1"
-            size={{ base: "lg", md: "3xl" }} // Reduced size on mobile for consistency with Home page
+            size={{ base: "lg", md: "3xl" }}
             fontWeight="extrabold"
             color="white"
             lineHeight={1.3}
@@ -58,10 +58,10 @@ export default function About() {
             Funding High-Impact Projects, Community Empowered
           </Heading>
           <Text
-            fontSize={{ base: "sm", md: "lg" }} // Reduced font size on mobile for consistency
+            fontSize={{ base: "sm", md: "lg" }}
             color="white"
             mt={6}
-            maxW={{ base: "90%", md: "800px" }} // Consistent max width on mobile
+            maxW={{ base: "90%", md: "800px" }}
             mx="auto"
             lineHeight={1.7}
             textShadow={useColorModeValue("0 2px 4px rgba(0, 0, 0, 0.8)", "0 2px 6px rgba(0, 0, 0, 0.9)")}
@@ -71,9 +71,9 @@ export default function About() {
           </Text>
           <HStack
             spacing={{ base: 4, md: 5 }}
-            mt={{ base: 8, md: 8 }} // Consistent margin-top for breathing room
+            mt={{ base: 8, md: 8 }}
             justify="center"
-            flexDirection={{ base: "column", md: "row" }} // Stack buttons on mobile
+            flexDirection={{ base: "column", md: "row" }}
             w="100%"
           >
             <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -85,16 +85,16 @@ export default function About() {
                 _hover={{ bg: "transparent", color: "white", borderColor: "white" }}
                 borderWidth="2px"
                 borderColor="white"
-                size={{ base: "md", md: "lg" }} // Adjusted size for mobile
-                px={{ base: 8, md: 8 }} // Consistent padding
+                size={{ base: "md", md: "lg" }}
+                px={{ base: 8, md: 8 }}
                 py={{ base: 6, md: 6 }}
-                fontSize={{ base: "sm", md: "lg" }} // Reduced font size on mobile for consistency
+                fontSize={{ base: "sm", md: "lg" }}
                 boxShadow={`0 8px 24px ${shadowColor}`}
                 borderRadius="full"
                 transition="all 0.3s ease"
-                w={{ base: "80%", md: "auto" }} // Consistent width on mobile
-                mb={{ base: 4, md: 0 }} // Consistent margin-bottom for spacing
-                whiteSpace="normal" // Prevent text overlap
+                w={{ base: "80%", md: "auto" }}
+                mb={{ base: 4, md: 0 }}
+                whiteSpace="normal"
                 textAlign="center"
               >
                 Launch Your Impact
@@ -109,15 +109,15 @@ export default function About() {
                 _hover={{ bg: "transparent", color: "white", borderColor: "white" }}
                 borderWidth="2px"
                 borderColor="white"
-                size={{ base: "md", md: "lg" }} // Adjusted size for mobile
-                px={{ base: 8, md: 8 }} // Consistent padding
+                size={{ base: "md", md: "lg" }}
+                px={{ base: 8, md: 8 }}
                 py={{ base: 6, md: 6 }}
-                fontSize={{ base: "sm", md: "lg" }} // Reduced font size on mobile for consistency
+                fontSize={{ base: "sm", md: "lg" }}
                 boxShadow={`0 8px 24px ${shadowColor}`}
                 borderRadius="full"
                 transition="all 0.3s ease"
-                w={{ base: "80%", md: "auto" }} // Consistent width on mobile
-                whiteSpace="normal" // Prevent text overlap
+                w={{ base: "80%", md: "auto" }}
+                whiteSpace="normal"
                 textAlign="center"
               >
                 Explore All Projects
@@ -338,6 +338,89 @@ export default function About() {
             Launch Now
           </Button>
         </Flex>
+      </Container>
+
+      {/* Our Story Section */}
+      <Container maxW="container.xl" py={14}>
+        <MotionBox
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <VStack spacing={6} textAlign="center">
+            <Heading
+              as="h2"
+              size={{ base: "lg", md: "2xl" }}
+              fontWeight="bold"
+              color={textColor}
+              fontFamily="Poppins, sans-serif"
+              textShadow={`0 1px 3px ${shadowColor}`}
+            >
+              Our Story
+              <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
+            </Heading>
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={subTextColor}
+              maxW="800px"
+              lineHeight={1.7}
+            >
+              Creova was born from a belief: that funding should be accessible, transparent, and owned by the people—not gated by VCs, banks, or traditional gatekeepers.
+              <br /><br />
+              We built Creova for creators, innovators, and changemakers who are building the future. Whether you’re launching a grassroots project or tackling global challenges, you shouldn’t need to chase investors to bring your ideas to life.
+              <br /><br />
+              Our mission is to unlock decentralised capital for ideas that matter—using Web3 technology to fund the next wave of impact-driven projects.
+              <br /><br />
+              No more middlemen. No more closed doors. Just open funding, powered by community, on-chain trust, and a fairer model for all.
+            </Text>
+          </VStack>
+        </MotionBox>
+      </Container>
+
+      {/* Founder Note Section */}
+      <Container maxW="container.xl" py={14} pb={20}>
+        <MotionBox
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <VStack
+            spacing={6}
+            textAlign="left"
+            bg={cardBg}
+            p={8}
+            borderRadius="3xl"
+            boxShadow={`0 12px 32px ${shadowColor}`}
+            maxW="800px"
+            mx="auto"
+          >
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              color={subTextColor}
+              lineHeight={1.7}
+            >
+              I started Creova because I believe funding should be open to everyone—not just those who know the right people or speak the right language.
+              <br /><br />
+              Too often, bold ideas are left behind because they don’t fit into traditional boxes. I’ve seen creators, builders, and mission-driven founders with powerful visions struggle—not because their ideas weren’t good enough, but because the system wasn’t built for them.
+              <br /><br />
+              Creova is my response to that. A decentralised platform designed to support the dreamers, the doers, the underdogs.
+              <br /><br />
+              This isn’t just a funding tool—it’s a shift in how capital flows, who gets to decide, and what kind of world we build together.
+              <br /><br />
+              If you’re someone building something meaningful, something that matters—Creova was made for you.
+            </Text>
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              color={textColor}
+              fontFamily="Poppins, sans-serif"
+            >
+              — Adam<br />Founder, Creova
+            </Text>
+          </VStack>
+        </MotionBox>
       </Container>
 
       <Footer />
