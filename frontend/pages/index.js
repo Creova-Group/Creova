@@ -61,7 +61,6 @@ const StatNumber = ({ endValue, suffix = "" }) => {
 };
 
 export default function Home() {
-  // State for spotlight campaign and stats
   const [spotlightCampaign, setSpotlightCampaign] = useState(null);
   const abi = FundingPoolABI.abi;
   const [totalFunding, setTotalFunding] = useState(0);
@@ -69,9 +68,8 @@ export default function Home() {
   const [totalMembers, setTotalMembers] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMounted, setIsMounted] = useState(false); // Added for layout stability
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Dynamic colors based on color mode
   const bgGradient = useColorModeValue("linear(to-br, #14B8A6, #ffffff)", "linear(to-br, #0D9488, #1A202C)");
   const textColor = useColorModeValue("gray.900", "white");
   const subTextColor = useColorModeValue("gray.700", "gray.300");
@@ -85,14 +83,12 @@ export default function Home() {
     md: true,
   });
 
-  // Stabilize layout on mount
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Fetch data from the smart contract
   useEffect(() => {
-    if (!abi) return; // Wait for ABI to load before proceeding
+    if (!abi) return;
 
     const fetchContractData = async () => {
       setLoading(true);
@@ -169,7 +165,6 @@ export default function Home() {
     fetchContractData();
   }, [abi]);
 
-  // Loading state
   if (loading) {
     return (
       <Flex minH="100vh" align="center" justify="center" bgGradient={bgGradient}>
@@ -180,7 +175,6 @@ export default function Home() {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <Flex minH="100vh" align="center" justify="center" bgGradient={bgGradient}>
@@ -273,7 +267,7 @@ export default function Home() {
                 fontFamily="Poppins, sans-serif"
                 px={{ base: 2, md: 0 }}
               >
-                Web3 Funding for Impact-Driven Projects 
+                Funding Without Gatekeepers.
               </Heading>
             </MotionBox>
             <MotionBox initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}>
@@ -286,7 +280,7 @@ export default function Home() {
                 textShadow={useColorModeValue("0 2px 6px rgba(0, 0, 0, 0.8)", "0 2px 6px rgba(0, 0, 0, 0.9)")}
                 px={{ base: 2, md: 0 }}
               >
-                Creova provides instant, transparent, and decentralised funding—backing groundbreaking innovations, public goods, and mission-driven ventures through crowdfunding and strategic Treasury grants.
+                Launch your project fast. Rally your community. Raise ETH from the crowd—or secure a Treasury Grant from our DAO.
               </Text>
             </MotionBox>
             <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }}>
@@ -354,27 +348,101 @@ export default function Home() {
         </MotionBox>
       </MotionBox>
 
+      {/* Two Ways to Fund Your Vision */}
+      <Container maxW="container.xl" py={14} mt={22}>
+        <Heading
+          as="h2"
+          size={{ base: "lg", md: "2xl" }}
+          mb={10}
+          fontWeight="bold"
+          color={textColor}
+          textShadow={`0 1px 3px ${shadowColor}`}
+          lineHeight={1.3}
+          fontFamily="Poppins, sans-serif"
+        >
+          Two Ways to Fund Your Vision
+          <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
+        </Heading>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
+          {[
+            {
+              icon: FaUsers,
+              title: "Crowdfunding",
+              text: "Raise ETH from supporters worldwide.",
+            },
+            {
+              icon: FaCoins,
+              title: "Treasury Grants",
+              text: "Secure milestone-based funding from Creova’s community treasury.",
+            },
+          ].map((item, index) => (
+            <MotionBox
+              key={index}
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 * index }}
+              flex="1"
+            >
+              <VStack
+                spacing={5}
+                p={8}
+                bg={cardBg}
+                borderRadius="3xl"
+                boxShadow={`0 12px 32px ${shadowColor}`}
+                height="100%"
+                minH="250px"
+                justify="space-between"
+                _hover={{ transform: "translateY(-6px)", boxShadow: `0 16px 40px ${shadowColor}` }}
+              >
+                <Box
+                  bg="teal.500"
+                  p={5}
+                  borderRadius="full"
+                  boxShadow={`0 4px 8px ${shadowColor}`}
+                  transition="transform 0.3s ease-in-out"
+                  _hover={{ transform: "scale(1.1)" }}
+                >
+                  <motion.div whileHover={{ rotate: 360, transition: { duration: 0.8 } }}>
+                    <item.icon size="48px" color="white" aria-label={item.title} />
+                  </motion.div>
+                </Box>
+                <VStack spacing={3} flex="1" justify="center">
+                  <Heading as="h3" size="md" color={textColor} fontWeight="bold" fontFamily="Poppins, sans-serif">
+                    {item.title}
+                  </Heading>
+                  <Text color={subTextColor} lineHeight={1.7} fontSize="md" px={2}>
+                    {item.text}
+                  </Text>
+                </VStack>
+              </VStack>
+            </MotionBox>
+          ))}
+        </SimpleGrid>
+      </Container>
+
       {/* How Creova Works and What Makes Us Different */}
       {[
         {
           title: "How Creova Works",
           items: [
-            { icon: FaCheckCircle, title: "1. Project Submission", text: "Submit projects, choosing crowdfunding or Treasury grants." },
-            { icon: FaVoteYea, title: "2. Transparent Review", text: "Proposals undergo community DAO voting for transparent approval." },
-            { icon: FaCoins, title: "3. Fund Distribution", text: "Upon approval, projects receive immediate, blockchain-based funding." },
+            { icon: FaCheckCircle, title: "1. Pick Your Path", text: "Crowdfund with your community or pitch for a grant." },
+            { icon: FaVoteYea, title: "2. Submit Your Vision", text: "Share your project with our DAO." },
+            { icon: FaCoins, title: "3. Get Funded Fast", text: "Receive ETH directly via smart contracts." },
+            { icon: FaArrowRight, title: "4. Build & Scale", text: "Meet milestones to unlock ongoing support." },
           ],
         },
         {
           title: "What Makes Us Different?",
           items: [
-            { icon: FaBolt, title: "Instant Liquidity", text: "Projects receive immediate blockchain-based funding." },
-            { icon: FaUsers, title: "Community-Driven", text: "Transparent decision-making that empowers communities." },
-            { icon: FaDollarSign, title: "Zero Middlemen", text: "Direct funding without hidden fees or intermediaries." },
-            { icon: FaLock, title: "Blockchain Secured", text: "Immutable smart contracts = transparency and trust." },
+            { icon: FaBolt, title: "Instant Funding", text: "ETH hits your wallet via blockchain, no delays." },
+            { icon: FaUsers, title: "Community-Led", text: "Our DAO decides, empowering you transparently." },
+            { icon: FaDollarSign, title: "No Gatekeepers", text: "Direct funding with low fees, full control." },
+            { icon: FaLock, title: "Blockchain-Backed", text: "Smart contracts lock in trust and transparency." },
           ],
         },
       ].map((section, idx) => (
-        <Container key={idx} maxW="container.xl" py={14} mt={idx === 0 ? 22 : 0}>
+        <Container key={idx} maxW="container.xl" py={14} mt={idx === 0 ? 0 : 0}>
           <Heading
             as="h2"
             size={{ base: "lg", md: "2xl" }}
@@ -495,11 +563,11 @@ export default function Home() {
             </VStack>
           </Flex>
         ) : (
-          <Text color={subTextColor}>No spotlight project available.</Text>
+          <Text color={subTextColor}>No spotlight project yet—yours could be next!</Text>
         )}
       </Container>
 
-      {/* Updated Testimonials Section */}
+      {/* Testimonials Section */}
       <Container maxW="container.xl" py={14} mb={22}>
         <Heading
           as="h2"
@@ -511,7 +579,7 @@ export default function Home() {
           lineHeight={1.3}
           fontFamily="Poppins, sans-serif"
         >
-          What Industry Leaders Say
+          Voices shaping Web3 see funding like Creova’s as the future:
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
@@ -594,7 +662,7 @@ export default function Home() {
           lineHeight={1.3}
           fontFamily="Poppins, sans-serif"
         >
-          Creova’s Impact to Date
+          Creova’s Impact So Far
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
@@ -656,10 +724,10 @@ export default function Home() {
         >
           <Box textAlign={{ base: "center", md: "left" }}>
             <Heading as="h2" size="xl" mb={4} color={textColor} fontFamily="Poppins, sans-serif" lineHeight={1.3}>
-              Let's Build Your Vision
+              Let's Build Your Vision Now
             </Heading>
             <Text fontSize="lg" color={subTextColor}>
-              Have an idea or question? Reach out directly—we're here to support your vision.
+              Got an idea or question? Contact us today—we’re ready to back your vision.
             </Text>
           </Box>
           <Button
