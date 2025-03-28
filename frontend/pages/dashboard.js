@@ -9,7 +9,6 @@ import {
 import { motion } from "framer-motion";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
-import { getFundingPoolContract } from "../lib/getFundingPoolContract";
 import { uploadFileToIPFS } from "../utils/pinata";
 import Footer from "../components/Footer";
 import { FaEthereum, FaUser, FaUsers, FaGift, FaFileUpload } from "react-icons/fa";

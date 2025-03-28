@@ -5,6 +5,7 @@ import {
 import { MoonIcon, SunIcon, ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import NextLink from "next/link";
 
 const GOLDEN_RATIO = 1.618; // Used for proportions
 
@@ -124,12 +125,13 @@ const Navbar = () => {
                         borderColor={hoverBg}
                         color={buttonTextColor}
                     >
-                        <MenuItem 
-                            onClick={() => router.push("/funding")} 
-                            _hover={{ bg: hoverBg, color: "white" }}
-                        >
-                            Launch a Project
-                        </MenuItem>
+                        <MenuItem
+                        as={NextLink}
+                         href="/funding"
+                         _hover={{ bg: hoverBg, color: "white" }}
+                    >
+                         Launch a Project
+                    </MenuItem>
                         <MenuItem 
                             onClick={() => router.push("/grants")} 
                             _hover={{ bg: hoverBg, color: "white" }}
