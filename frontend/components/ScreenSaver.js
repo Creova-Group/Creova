@@ -6,8 +6,10 @@ const ScreenSaver = () => {
   const [isActive, setIsActive] = useState(false);
   const timeoutRef = useRef(null);
   const animationFrameRef = useRef(null);
-  const baseColor = '#26A69A';
-  const tintColors = ['#FFFFFF'];
+  const baseColor = '#26A69A'; // Original teal
+  const darkColor = '#1B7A71'; // Darker teal for depth
+  const glowColor = '#4DD0C5'; // Brighter teal for glow
+  const tintColors = ['#FFFFFF']; // White tint
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -43,7 +45,7 @@ const ScreenSaver = () => {
 
     const animate = () => {
       if (!isActive) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         return;
       }
 
@@ -54,11 +56,28 @@ const ScreenSaver = () => {
         ctx.beginPath();
         ctx.ellipse(p.x, p.y, p.width / 2, p.height / 2, 0, 0, Math.PI * 2);
 
-        const xFraction = p.x / canvas.width;
-        const t = xFraction;
-        const r = parseInt(baseColor.slice(1, 3), 16) * (1 - t) + parseInt(tintColors[0].slice(1, 3), 16) * t;
-        const g = parseInt(baseColor.slice(3, 5), 16) * (1 - t) + parseInt(tintColors[0].slice(3, 5), 16) * t;
-        const b = parseInt(baseColor.slice(5, 7), 16) * (1 - t) + parseInt(tintColors[0].slice(5, 7), 16) * t;
+        // Calculate color based on position
+        const xFraction = p.x / canvas.width; // Left-to-right gradient
+        const yFraction = p.y / canvas.height; // Top-to-bottom gradient
+        const midDistance = Math.abs(yFraction - 0.5); // Distance from vertical middle
+
+        // Base gradient (teal to white)
+        let r = parseInt(baseColor.slice(1, 3), 16) * (1 - xFraction) + parseInt(tintColors[0].slice(1, 3), 16) * xFraction;
+        let g = parseInt(baseColor.slice(3, 5), 16) * (1 - xFraction) + parseInt(tintColors[0].slice(3, 5), 16) * xFraction;
+        let b = parseInt(baseColor.slice(5, 7), 16) * (1 - xFraction) + parseInt(tintColors[0].slice(5, 7), 16) * xFraction;
+
+        // Add depth with darker teal as drops fall
+        const depthFactor = yFraction; // 0 at top, 1 at bottom
+        r = r * (1 - depthFactor) + parseInt(darkColor.slice(1, 3), 16) * depthFactor;
+        g = g * (1 - depthFactor) + parseInt(darkColor.slice(3, 5), 16) * depthFactor;
+        b = b * (1 - depthFactor) + parseInt(darkColor.slice(5, 7), 16) * depthFactor;
+
+        // Add glow effect in the middle
+        const glowStrength = Math.max(0, 1 - midDistance * 4); // Peaks at y=0.5, fades out
+        r = r * (1 - glowStrength) + parseInt(glowColor.slice(1, 3), 16) * glowStrength;
+        g = g * (1 - glowStrength) + parseInt(glowColor.slice(3, 5), 16) * glowStrength;
+        b = b * (1 - glowStrength) + parseInt(glowColor.slice(5, 7), 16) * glowStrength;
+
         const finalColor = `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
         ctx.fillStyle = `${finalColor}${Math.floor(p.opacity * 255 * 0.6).toString(16).padStart(2, '0')}`;
         ctx.fill();
@@ -92,7 +111,7 @@ const ScreenSaver = () => {
     window.addEventListener('mousemove', handleActivity);
     window.addEventListener('click', handleActivity);
     window.addEventListener('resize', resizeCanvas);
-    
+
     resetTimeout();
     animationFrameRef.current = requestAnimationFrame(animate);
 
