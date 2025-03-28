@@ -13,7 +13,7 @@ import { getFundingPoolContract } from "../lib/getFundingPoolContract";
 import { uploadFileToIPFS } from "../utils/pinata";
 import Footer from "../components/Footer";
 import { FaEthereum, FaUser, FaUsers, FaGift, FaFileUpload } from "react-icons/fa";
-
+import { getFundingPoolContract, CONTRACT_ADDRESS } from "../lib/getFundingPoolContract";
 const MotionBox = motion(Box);
 const MAX_PROOF_SIZE = 10 * 1024 * 1024; // 10MB
 
