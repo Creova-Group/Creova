@@ -404,6 +404,20 @@ export default function Transparency() {
           </Text>
         </MotionBox>
 
+        {/* Short Explainer Added Here */}
+        <Text 
+          fontSize={{ base: "sm", md: "md" }} 
+          color="white" 
+          fontWeight="medium" 
+          maxW="600px" 
+          mx="auto" 
+          mt={4} 
+          mb={6} 
+          textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
+        >
+          All funding activity on Creova is recorded on-chain. This dashboard shows real-time data from our smart contracts and treasury.
+        </Text>
+
         {uiState.error && (
           <Alert status="error" mt={4} rounded="md" bg={cardBg}>
             <AlertIcon />
