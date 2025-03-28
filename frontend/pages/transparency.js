@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import {
   FaEthereum, FaUsers, FaProjectDiagram, FaMoneyBillWave, FaCalendarAlt, FaUser, FaGift,
 } from "react-icons/fa";
-import { getFundingPoolContract } from "../lib/getFundingPoolContract";
+import { getFundingPoolContract, CONTRACT_ADDRESS } from "../lib/getFundingPoolContract";
 import Footer from "../components/Footer";
 
 const MotionBox = motion(Box);
