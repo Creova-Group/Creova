@@ -398,14 +398,14 @@ export default function About() {
                 fontSize={{ base: "md", md: "lg" }}
                 fontWeight="bold"
                 color={textColor}
-                fontFamily="Inter, sans-serif" // Match the new font
+                fontFamily="Inter, sans-serif" 
               >
                 — Adam, Founder, Creova
               </Text>
               <Image
                 src="/logo.png"
                 alt="Creova Logo"
-                boxSize={{ base: "32px", md: "40px" }} // Bigger logo
+                boxSize={{ base: "64px", md: "80px" }} 
                 objectFit="contain"
               />
             </HStack>
@@ -413,7 +413,7 @@ export default function About() {
         </MotionBox>
       </Container>
 
-      {/* CTA Section (Moved to Bottom) */}
+      {/* CTA Section  */}
       <Container maxW="container.xl" py={14} pb={20}>
         <Flex
           direction={{ base: "column", md: "row" }}
