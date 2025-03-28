@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Container, VStack, Flex, Button, SimpleGrid, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Heading, Text, Container, VStack, Flex, Button, SimpleGrid, HStack, useColorModeValue, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
@@ -306,40 +306,6 @@ export default function About() {
         </SimpleGrid>
       </Container>
 
-      {/* CTA Section */}
-      <Container maxW="container.xl" py={14}>
-        <Flex
-          direction={{ base: "column", md: "row" }}
-          align="center"
-          justify="space-between"
-          bgGradient={useColorModeValue("linear(to-br, teal.400, teal.100)", "linear(to-br, teal.600, teal.900)")}
-          borderRadius="2xl"
-          p={10}
-          boxShadow={`0 16px 48px ${shadowColor}`}
-        >
-          <Box textAlign={{ base: "center", md: "left" }}>
-            <Heading as="h2" size="xl" mb={4} color={textColor} fontFamily="Poppins, sans-serif">
-              Ready to Drive Impact?
-            </Heading>
-            <Text fontSize="lg" color={subTextColor}>
-              Launch your high-impact project with Creova today.
-            </Text>
-          </Box>
-          <Button
-            as={NextLink}
-            href="/funding"
-            colorScheme="teal"
-            size="lg"
-            px={10}
-            mt={{ base: 8, md: 0 }}
-            borderRadius="full"
-            _hover={{ transform: "translateY(-4px)", boxShadow: `0 8px 24px ${shadowColor}` }}
-          >
-            Launch Now
-          </Button>
-        </Flex>
-      </Container>
-
       {/* Our Story Section */}
       <Container maxW="container.xl" py={14}>
         <MotionBox
@@ -348,7 +314,16 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <VStack spacing={6} textAlign="center">
+          <VStack
+            spacing={6}
+            textAlign="center"
+            bg={cardBg}
+            p={8}
+            borderRadius="3xl"
+            boxShadow={`0 12px 32px ${shadowColor}`}
+            maxW="800px"
+            mx="auto"
+          >
             <Heading
               as="h2"
               size={{ base: "lg", md: "2xl" }}
@@ -363,7 +338,6 @@ export default function About() {
             <Text
               fontSize={{ base: "md", md: "lg" }}
               color={subTextColor}
-              maxW="800px"
               lineHeight={1.7}
             >
               Creova was born from a belief: that funding should be accessible, transparent, and owned by the people—not gated by VCs, banks, or traditional gatekeepers.
@@ -378,7 +352,41 @@ export default function About() {
         </MotionBox>
       </Container>
 
-      {/* Founder Note Section */}
+      {/* CTA Section */}
+      <Container maxW="container.xl" py={14}>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          align="center"
+          justify="space-between"
+          bgGradient={useColorModeValue("linear(to-br, teal.400, teal.100)", "linear(to-br, teal.600, teal.900)")}
+          borderRadius="2xl"
+          p={{ base: 8, md: 10 }}
+          boxShadow={`0 16px 48px ${shadowColor}`}
+        >
+          <Box textAlign={{ base: "center", md: "left" }}>
+            <Heading as="h2" size={{ base: "lg", md: "xl" }} mb={4} color={textColor} fontFamily="Poppins, sans-serif">
+              Ready to Drive Impact?
+            </Heading>
+            <Text fontSize={{ base: "md", md: "lg" }} color={subTextColor}>
+              Launch your high-impact project with Creova today.
+            </Text>
+          </Box>
+          <Button
+            as={NextLink}
+            href="/funding"
+            colorScheme="teal"
+            size={{ base: "md", md: "lg" }}
+            px={{ base: 8, md: 10 }}
+            mt={{ base: 6, md: 0 }}
+            borderRadius="full"
+            _hover={{ transform: "translateY(-4px)", boxShadow: `0 8px 24px ${shadowColor}` }}
+          >
+            Launch Now
+          </Button>
+        </Flex>
+      </Container>
+
+      {/* Founder Note Section with Logo */}
       <Container maxW="container.xl" py={14} pb={20}>
         <MotionBox
           initial={{ opacity: 0, y: 20 }}
@@ -387,38 +395,42 @@ export default function About() {
           transition={{ duration: 0.8 }}
         >
           <VStack
-            spacing={6}
+            spacing={4}
             textAlign="left"
             bg={cardBg}
-            p={8}
-            borderRadius="3xl"
-            boxShadow={`0 12px 32px ${shadowColor}`}
-            maxW="800px"
+            p={{ base: 6, md: 8 }}
+            borderRadius="2xl"
+            boxShadow={`0 8px 24px ${shadowColor}`}
+            maxW="700px"
             mx="auto"
           >
             <Text
-              fontSize={{ base: "md", md: "lg" }}
+              fontSize={{ base: "sm", md: "md" }}
               color={subTextColor}
-              lineHeight={1.7}
+              lineHeight={1.6}
             >
-              I started Creova because I believe funding should be open to everyone—not just those who know the right people or speak the right language.
+              I started Creova because I believe funding should be open to everyone—not just those with connections. Too often, bold ideas are sidelined by a system not built for them. Creova changes that.
               <br /><br />
-              Too often, bold ideas are left behind because they don’t fit into traditional boxes. I’ve seen creators, builders, and mission-driven founders with powerful visions struggle—not because their ideas weren’t good enough, but because the system wasn’t built for them.
+              It’s a platform for dreamers and doers—decentralised, transparent, and community-driven. This isn’t just funding; it’s a new way to empower impact.
               <br /><br />
-              Creova is my response to that. A decentralised platform designed to support the dreamers, the doers, the underdogs.
-              <br /><br />
-              This isn’t just a funding tool—it’s a shift in how capital flows, who gets to decide, and what kind of world we build together.
-              <br /><br />
-              If you’re someone building something meaningful, something that matters—Creova was made for you.
+              If you’re building something meaningful, Creova is for you.
             </Text>
-            <Text
-              fontSize="lg"
-              fontWeight="bold"
-              color={textColor}
-              fontFamily="Poppins, sans-serif"
-            >
-              — Adam<br />Founder, Creova
-            </Text>
+            <HStack spacing={3} align="center">
+              <Text
+                fontSize={{ base: "md", md: "lg" }}
+                fontWeight="bold"
+                color={textColor}
+                fontFamily="Poppins, sans-serif"
+              >
+                — Adam<br />Founder, Creova
+              </Text>
+              <Image
+                src="/logo.png"
+                alt="Creova Logo"
+                boxSize={{ base: "24px", md: "32px" }} // Small logo size
+                objectFit="contain"
+              />
+            </HStack>
           </VStack>
         </MotionBox>
       </Container>
