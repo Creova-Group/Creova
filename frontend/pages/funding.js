@@ -154,7 +154,7 @@ export default function Funding() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [gasEstimate, setGasEstimate] = useState(null);
   const [lastTxHash, setLastTxHash] = useState(null);
-  const [tip, setTip] = useState("A thorough description helps with finding and securing funding!");
+  const [tip, setTip] = useState("You should upload very clear full project details to increase your chances of approval");
 
   const toast = useToast();
   const { address, isConnected } = useAccount();
@@ -863,7 +863,7 @@ try {
               )}
 
               <Text fontSize="sm" color={subTextColor} fontFamily="Poppins, sans-serif">
-                You should upload very clear full project details to increase your chances of approval
+                Thankyou for using Creova!
               </Text>
               {gasEstimate && <Text fontSize="sm" color={subTextColor}>Estimated Gas: {gasEstimate} ETH</Text>}
 
