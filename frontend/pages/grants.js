@@ -246,7 +246,7 @@ export default function Grants() {
         </SimpleGrid>
       </Container>
 
-      {/* Updated Grant Process Visual */}
+      {/* Updated Grant Process with Copy */}
       <Container maxW="container.xl" py={spacing.xl}>
         <Heading as="h2" size={{ base: "lg", md: "2xl" }} mb={spacing.lg} fontWeight="bold">
           Grant Process
@@ -254,10 +254,10 @@ export default function Grants() {
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing={spacing.md} maxW="1200px" mx="auto">
           {[
-            { step: "1", title: "Apply" },
-            { step: "2", title: "Admin Reviews" },
-            { step: "3", title: "Milestones Approved" },
-            { step: "4", title: "Funds Disbursed" },
+            { step: "1", title: "Apply", text: "Submit your project proposal to our team." },
+            { step: "2", title: "Admin Reviews", text: "We assess your plan—DAO voting coming soon!" },
+            { step: "3", title: "Milestones Approved", text: "Set and agree on project milestones." },
+            { step: "4", title: "Funds Disbursed", text: "Receive ETH as milestones are met." },
           ].map((item, idx) => (
             <MotionBox
               key={idx}
@@ -271,7 +271,7 @@ export default function Grants() {
                 borderRadius="2xl"
                 p={spacing.md}
                 spacing={spacing.sm}
-                minH="200px"
+                minH="250px"
                 boxShadow={useColorModeValue("0 8px 24px rgba(0, 0, 0, 0.15)", "0 8px 24px rgba(255, 255, 255, 0.1)")}
                 _hover={{ transform: "translateY(-4px)", boxShadow: hoverShadow }}
                 transition="all 0.3s ease"
@@ -292,6 +292,9 @@ export default function Grants() {
                 </Flex>
                 <Text fontWeight="bold" fontSize="md" color={textColor}>
                   {item.title}
+                </Text>
+                <Text color={subTextColor} fontSize="md" lineHeight={1.7} textAlign="center">
+                  {item.text}
                 </Text>
               </VStack>
             </MotionBox>
