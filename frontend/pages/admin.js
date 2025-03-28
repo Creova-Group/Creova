@@ -35,13 +35,14 @@ import { FaEthereum, FaUsers, FaCoins, FaTrash } from "react-icons/fa";
 
 const MotionBox = motion(Box);
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS || "0x8e857937E1Fe63bf5fe709413B4521F2F4261533";
+
 export default function AdminPage() {
   const { address, isConnected, isConnecting } = useAccount();
   const [campaigns, setCampaigns] = useState([]);
   const [newVoter, setNewVoter] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(""); // New state for loading message
+  const [loadingMessage, setLoadingMessage] = useState("");
   const [isVoter, setIsVoter] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [ownerAddress, setOwnerAddress] = useState(null);
@@ -55,7 +56,7 @@ export default function AdminPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [campaignToDelete, setCampaignToDelete] = useState(null);
   const toast = useToast();
-  const cancelRef = useRef(); // For AlertDialog
+  const cancelRef = useRef();
 
   const loadContractData = async () => {
     if (!window.ethereum || !isConnected) return;
@@ -84,7 +85,7 @@ export default function AdminPage() {
 
       for (let i = 1; i <= campaignCount; i++) {
         const campaign = await contract.campaigns(i);
-        if (campaign.creator === ethers.ZeroAddress) continue; // Skip deleted campaigns
+        if (campaign.creator === ethers.ZeroAddress) continue;
         const milestones = await contract.getCampaignMilestones(i);
         const contributors = await contract.getContributors(i);
         const supportersCount = contributors.length;
@@ -136,161 +137,114 @@ export default function AdminPage() {
     return `${days}d ${hours}h`;
   };
 
-  const handleVoteCampaign = async (id) => {
-    if (!isVoter) return;
+  const withLoadingAndToast = async (action, messages, refresh = true) => {
     setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to approve campaign...");
+    setLoadingMessage(messages.start);
+    toast({ title: messages.start, status: "info", duration: 3000 });
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = getFundingPoolContract(signer);
-      const tx = await contract.voteCampaign(id);
-      setLoadingMessage("Confirming transaction on the blockchain...");
+      const tx = await action(contract, signer);
+      setLoadingMessage(messages.waiting);
+      toast({ title: messages.waiting, status: "info", duration: null });
       await tx.wait();
-      toast({ title: "Campaign approved!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
+      toast.closeAll();
+      toast({ title: messages.success, status: "success" });
+      if (refresh) {
+        setLoadingMessage("Refreshing data...");
+        await loadContractData();
+      }
     } catch (error) {
-      toast({ title: "Error approving campaign", description: error.message, status: "error" });
+      toast.closeAll();
+      toast({ title: messages.error, description: error.message, status: "error" });
     } finally {
       setLoading(false);
       setLoadingMessage("");
     }
   };
 
-  const handleAutoReject = async (id) => {
-    if (!isVoter) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to reject campaign...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.autoRejectUnreviewedTreasuryGrants(id);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Campaign rejected!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error rejecting campaign", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleVoteCampaign = (id) =>
+    withLoadingAndToast(
+      (contract) => contract.voteCampaign(id),
+      {
+        start: "Approving campaign...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Campaign approved!",
+        error: "Error approving campaign",
+      }
+    );
 
-  const handleOverrideRejection = async (id) => {
-    if (!isVoter) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to override rejection...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.overrideAutoRejection(id);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Rejection overridden!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error overriding rejection", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleAutoReject = (id) =>
+    withLoadingAndToast(
+      (contract) => contract.autoRejectUnreviewedTreasuryGrants(id),
+      {
+        start: "Rejecting campaign...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Campaign rejected!",
+        error: "Error rejecting campaign",
+      }
+    );
 
-  const handleApproveMilestone = async (campaignId, milestoneId) => {
-    if (!isVoter) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to approve milestone...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.approveMilestone(campaignId, milestoneId);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Milestone approved!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error approving milestone", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleOverrideRejection = (id) =>
+    withLoadingAndToast(
+      (contract) => contract.overrideAutoRejection(id),
+      {
+        start: "Overriding rejection...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Rejection overridden!",
+        error: "Error overriding rejection",
+      }
+    );
 
-  const handleRejectMilestone = async (campaignId, milestoneId) => {
-    if (!isVoter) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to reject milestone...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.rejectMilestone(campaignId, milestoneId);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Milestone rejected!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error rejecting milestone", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleApproveMilestone = (campaignId, milestoneId) =>
+    withLoadingAndToast(
+      (contract) => contract.approveMilestone(campaignId, milestoneId),
+      {
+        start: "Approving milestone...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Milestone approved!",
+        error: "Error approving milestone",
+      }
+    );
 
-  const handleRefundUnspentFunds = async (id) => {
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to refund unspent funds...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.refundUnspentFunds(id);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Unspent funds refunded!", status: "success" });
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error refunding funds", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleRejectMilestone = (campaignId, milestoneId) =>
+    withLoadingAndToast(
+      (contract) => contract.rejectMilestone(campaignId, milestoneId),
+      {
+        start: "Rejecting milestone...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Milestone rejected!",
+        error: "Error rejecting milestone",
+      }
+    );
 
-  const handleApproveCustomMilestones = async (campaignId) => {
-    if (!isVoter || customMilestones.length === 0) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to approve custom milestones...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const descriptions = customMilestones.map((m) => m.description);
-      const amounts = customMilestones.map((m) => ethers.parseEther(m.amount));
-      const tx = await contract.approveCustomMilestones(campaignId, descriptions, amounts);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Custom milestones approved!", status: "success" });
-      setCustomMilestones([]);
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error approving custom milestones", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleRefundUnspentFunds = (id) =>
+    withLoadingAndToast(
+      (contract) => contract.refundUnspentFunds(id),
+      {
+        start: "Refunding unspent funds...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Unspent funds refunded!",
+        error: "Error refunding funds",
+      }
+    );
+
+  const handleApproveCustomMilestones = (campaignId) =>
+    withLoadingAndToast(
+      (contract) => {
+        const descriptions = customMilestones.map((m) => m.description);
+        const amounts = customMilestones.map((m) => ethers.parseEther(m.amount));
+        return contract.approveCustomMilestones(campaignId, descriptions, amounts);
+      },
+      {
+        start: "Approving custom milestones...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Custom milestones approved!",
+        error: "Error approving custom milestones",
+      },
+      () => setCustomMilestones([])
+    );
 
   const handleAddCustomMilestone = () => {
     setCustomMilestones([...customMilestones, { description: "", amount: "" }]);
@@ -302,100 +256,58 @@ export default function AdminPage() {
     setCustomMilestones(updated);
   };
 
-  const handleAddVoter = async () => {
-    if (!isOwner || !ethers.isAddress(newVoter)) {
-      toast({ title: "Invalid address or not owner", status: "warning" });
-      return;
-    }
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to add voter...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.grantRole(ethers.keccak256(ethers.toUtf8Bytes("VOTER_ROLE")), newVoter);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Voter added!", status: "success" });
-      setNewVoter("");
-      setLoadingMessage("Refreshing data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error adding voter", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleAddVoter = () =>
+    withLoadingAndToast(
+      (contract) => {
+        if (!ethers.isAddress(newVoter)) throw new Error("Invalid address");
+        return contract.grantRole(ethers.keccak256(ethers.toUtf8Bytes("VOTER_ROLE")), newVoter);
+      },
+      {
+        start: "Adding voter...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Voter added!",
+        error: "Error adding voter",
+      },
+      () => setNewVoter("")
+    );
 
-  const handleOwnerWithdraw = async () => {
-    if (!isOwner || !withdrawAmount) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to withdraw funds...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.ownerWithdraw(ethers.parseEther(withdrawAmount));
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Funds withdrawn!", status: "success" });
-      setWithdrawAmount("");
-      setLoadingMessage("Refreshing treasury data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error withdrawing funds", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleOwnerWithdraw = () =>
+    withLoadingAndToast(
+      (contract) => contract.ownerWithdraw(ethers.parseEther(withdrawAmount)),
+      {
+        start: "Withdrawing funds...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Funds withdrawn!",
+        error: "Error withdrawing funds",
+      },
+      () => setWithdrawAmount("")
+    );
 
-  const handleUpdateTreasuryLimit = async () => {
-    if (!isOwner) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to update treasury limit...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.updateTreasuryLimit();
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Treasury limit updated!", status: "success" });
-      setLoadingMessage("Refreshing treasury data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error updating treasury limit", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleUpdateTreasuryLimit = () =>
+    withLoadingAndToast(
+      (contract) => contract.updateTreasuryLimit(),
+      {
+        start: "Updating treasury limit...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Treasury limit updated!",
+        error: "Error updating treasury limit",
+      }
+    );
 
-  const handleDeleteCampaign = async () => {
-    if (!isOwner || !campaignToDelete) return;
-    setLoading(true);
-    setLoadingMessage("Waiting for wallet approval to delete campaign...");
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = getFundingPoolContract(signer);
-      const tx = await contract.deleteCampaign(campaignToDelete.id);
-      setLoadingMessage("Confirming transaction on the blockchain...");
-      await tx.wait();
-      toast({ title: "Campaign deleted!", status: "success" });
-      setIsDeleteDialogOpen(false);
-      setCampaignToDelete(null);
-      setLoadingMessage("Refreshing campaign data...");
-      await loadContractData();
-    } catch (error) {
-      toast({ title: "Error deleting campaign", description: error.message, status: "error" });
-    } finally {
-      setLoading(false);
-      setLoadingMessage("");
-    }
-  };
+  const handleDeleteCampaign = () =>
+    withLoadingAndToast(
+      (contract) => contract.deleteCampaign(campaignToDelete.id),
+      {
+        start: "Deleting campaign...",
+        waiting: "Confirming transaction on the blockchain...",
+        success: "Campaign deleted!",
+        error: "Error deleting campaign",
+      },
+      () => {
+        setIsDeleteDialogOpen(false);
+        setCampaignToDelete(null);
+      }
+    );
 
   const openDeleteDialog = (campaign) => {
     setCampaignToDelete(campaign);
@@ -459,25 +371,10 @@ export default function AdminPage() {
   }
 
   return (
-    <Flex
-      direction="column"
-      minH="100vh"
-      bgGradient="linear(to-br, #14B8A6, #ffffff)"
-      pt="64px"
-    >
+    <Flex direction="column" minH="100vh" bgGradient="linear(to-br, #14B8A6, #ffffff)" pt="64px">
       <Container maxW="container.xl" py={12} textAlign="center">
         <MotionBox initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-          <Heading
-            as="h1"
-            size={{ base: "xl", md: "3xl" }}
-            fontWeight="extrabold"
-            color="white"
-            lineHeight={1.3}
-            textShadow="0 4px 12px rgba(0, 0, 0, 0.8)"
-            letterSpacing="0.5px"
-            fontFamily="Poppins, sans-serif"
-            mb={8}
-          >
+          <Heading as="h1" size={{ base: "xl", md: "3xl" }} fontWeight="extrabold" color="white" lineHeight={1.3} textShadow="0 4px 12px rgba(0, 0, 0, 0.8)" letterSpacing="0.5px" fontFamily="Poppins, sans-serif" mb={8}>
             Admin Panel
           </Heading>
         </MotionBox>
@@ -505,19 +402,14 @@ export default function AdminPage() {
                     borderRadius="full"
                     boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                     fontFamily="Poppins, sans-serif"
-                    _hover={{
-                      bgGradient: "linear(to-r, teal.400, teal.500)",
-                      color: "white",
-                      boxShadow: "md",
-                      transform: "scale(1.05)",
-                    }}
+                    _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                     px={8}
                     w="180px"
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textOverflow="ellipsis"
                     onClick={handleAddVoter}
-                    isLoading={loading}
+                    isDisabled={loading || !isOwner}
                   >
                     Add Voter
                   </Button>
@@ -540,19 +432,14 @@ export default function AdminPage() {
                     borderRadius="full"
                     boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                     fontFamily="Poppins, sans-serif"
-                    _hover={{
-                      bgGradient: "linear(to-r, teal.400, teal.500)",
-                      color: "white",
-                      boxShadow: "md",
-                      transform: "scale(1.05)",
-                    }}
+                    _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                     px={8}
                     w="180px"
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textOverflow="ellipsis"
                     onClick={handleOwnerWithdraw}
-                    isLoading={loading}
+                    isDisabled={loading || !isOwner || !withdrawAmount}
                   >
                     Withdraw Funds
                   </Button>
@@ -564,45 +451,29 @@ export default function AdminPage() {
             </Heading>
             <VStack spacing={3} align="stretch">
               <Flex justify="space-between" align="center">
-                <Text fontSize="sm" color="gray.600" fontWeight="bold">
-                  Quarterly Limit:
-                </Text>
+                <Text fontSize="sm" color="gray.600" fontWeight="bold">Quarterly Limit:</Text>
                 <HStack>
                   <FaEthereum color="teal.600" />
-                  <Text fontSize="lg" color="teal.600">
-                    {parseFloat(treasuryInfo.limit).toFixed(2)} ETH
-                  </Text>
+                  <Text fontSize="lg" color="teal.600">{parseFloat(treasuryInfo.limit).toFixed(2)} ETH</Text>
                 </HStack>
               </Flex>
               <Flex justify="space-between" align="center">
-                <Text fontSize="sm" color="gray.600" fontWeight="bold">
-                  Funds Used:
-                </Text>
+                <Text fontSize="sm" color="gray.600" fontWeight="bold">Funds Used:</Text>
                 <HStack>
                   <FaEthereum color="teal.600" />
-                  <Text fontSize="lg" color="teal.600">
-                    {parseFloat(treasuryInfo.used).toFixed(2)} ETH
-                  </Text>
+                  <Text fontSize="lg" color="teal.600">{parseFloat(treasuryInfo.used).toFixed(2)} ETH</Text>
                 </HStack>
               </Flex>
               <Flex justify="space-between" align="center">
-                <Text fontSize="sm" color="gray.600" fontWeight="bold">
-                  Full Treasury Balance:
-                </Text>
+                <Text fontSize="sm" color="gray.600" fontWeight="bold">Full Treasury Balance:</Text>
                 <HStack>
                   <FaEthereum color="teal.600" />
-                  <Text fontSize="lg" color="teal.600">
-                    {parseFloat(treasuryInfo.fullBalance).toFixed(2)} ETH
-                  </Text>
+                  <Text fontSize="lg" color="teal.600">{parseFloat(treasuryInfo.fullBalance).toFixed(2)} ETH</Text>
                 </HStack>
               </Flex>
               <Flex justify="space-between" align="center">
-                <Text fontSize="sm" color="gray.600" fontWeight="bold">
-                  Quarter Start:
-                </Text>
-                <Text fontSize="sm" color="gray.800">
-                  {new Date(treasuryInfo.quarterStart * 1000).toLocaleString()}
-                </Text>
+                <Text fontSize="sm" color="gray.600" fontWeight="bold">Quarter Start:</Text>
+                <Text fontSize="sm" color="gray.800">{new Date(treasuryInfo.quarterStart * 1000).toLocaleString()}</Text>
               </Flex>
               <Tooltip label="Recalculates quarterly treasury limit">
                 <Button
@@ -612,19 +483,14 @@ export default function AdminPage() {
                   borderRadius="full"
                   boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                   fontFamily="Poppins, sans-serif"
-                  _hover={{
-                    bgGradient: "linear(to-r, teal.400, teal.500)",
-                    color: "white",
-                    boxShadow: "md",
-                    transform: "scale(1.05)",
-                  }}
+                  _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                   px={6}
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
                   mt={4}
                   onClick={handleUpdateTreasuryLimit}
-                  isLoading={loading}
+                  isDisabled={loading || !isOwner}
                 >
                   Update Treasury Limit
                 </Button>
@@ -632,29 +498,19 @@ export default function AdminPage() {
             </VStack>
           </MotionBox>
 
-          <Heading
-            size="lg"
-            color="white"
-            textShadow="0 4px 6px rgba(0, 0, 0, 0.8)"
-            fontFamily="Poppins, sans-serif"
-            mb={6}
-            mt={10}
-            textAlign="center"
-          >
+          <Heading size="lg" color="white" textShadow="0 4px 6px rgba(0, 0, 0, 0.8)" fontFamily="Poppins, sans-serif" mb={6} mt={10} textAlign="center">
             Campaign Management
           </Heading>
-          {loading ? (
+          {loading && (
             <Flex justify="center" py={10} direction="column" align="center">
               <Spinner size="xl" color="white" thickness="3px" />
-              <Text color="white" mt={4} fontFamily="Poppins, sans-serif">
-                {loadingMessage}
-              </Text>
+              <Text color="white" mt={4} fontFamily="Poppins, sans-serif">{loadingMessage}</Text>
             </Flex>
-          ) : campaigns.length === 0 ? (
-            <Text color="white" textAlign="center" py={4} fontFamily="Poppins, sans-serif">
-              No campaigns found.
-            </Text>
-          ) : (
+          )}
+          {!loading && campaigns.length === 0 && (
+            <Text color="white" textAlign="center" py={4} fontFamily="Poppins, sans-serif">No campaigns found.</Text>
+          )}
+          {!loading && campaigns.length > 0 && (
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
               {campaigns.map((campaign, index) => (
                 <MotionBox
@@ -671,22 +527,12 @@ export default function AdminPage() {
                   _hover={{ shadow: "lg", borderColor: campaign.type === "Crowdfunding" ? "teal.500" : "yellow.500" }}
                 >
                   <VStack align="stretch" spacing={4}>
-                    <Heading
-                      size="md"
-                      color="gray.800"
-                      fontWeight="bold"
-                      noOfLines={1}
-                      textAlign="center"
-                      fontSize="lg"
-                      fontFamily="Poppins, sans-serif"
-                    >
+                    <Heading size="md" color="gray.800" fontWeight="bold" noOfLines={1} textAlign="center" fontSize="lg" fontFamily="Poppins, sans-serif">
                       {campaign.name}
                     </Heading>
                     <HStack justify="center" spacing={3}>
                       <Badge
-                        colorScheme={
-                          campaign.status === "Approved" ? "green" : campaign.status === "Rejected" ? "red" : "yellow"
-                        }
+                        colorScheme={campaign.status === "Approved" ? "green" : campaign.status === "Rejected" ? "red" : "yellow"}
                         px={3}
                         py={1}
                         rounded="full"
@@ -717,26 +563,15 @@ export default function AdminPage() {
                     <Box bg="gray.50" p={4} rounded="lg">
                       <VStack spacing={2} align="stretch">
                         <Text fontSize="sm" color="gray.600">
-                          Creator:{" "}
-                          <ChakraLink href={`https://sepolia.etherscan.io/address/${campaign.creator}`} target="_blank" color="teal.500">
-                            {campaign.creator.slice(0, 6)}...{campaign.creator.slice(-4)}
-                          </ChakraLink>
+                          Creator: <ChakraLink href={`https://sepolia.etherscan.io/address/${campaign.creator}`} target="_blank" color="teal.500">{campaign.creator.slice(0, 6)}...{campaign.creator.slice(-4)}</ChakraLink>
                         </Text>
-                        <Text fontSize="sm" color="gray.600">
-                          Goal: <Text as="span" color="teal.600">{parseFloat(campaign.fundingGoal).toFixed(2)} ETH</Text>
-                        </Text>
-                        <Text fontSize="sm" color="gray.600">
-                          Raised: <Text as="span" color="teal.600">{parseFloat(campaign.amountRaised).toFixed(2)} ETH</Text>
-                        </Text>
+                        <Text fontSize="sm" color="gray.600">Goal: <Text as="span" color="teal.600">{parseFloat(campaign.fundingGoal).toFixed(2)} ETH</Text></Text>
+                        <Text fontSize="sm" color="gray.600">Raised: <Text as="span" color="teal.600">{parseFloat(campaign.amountRaised).toFixed(2)} ETH</Text></Text>
                         {campaign.type === "Crowdfunding" && (
-                          <Text fontSize="sm" color="gray.600">
-                            Deadline: <Text as="span" color="gray.800">{getTimeRemaining(campaign.deadline)}</Text>
-                          </Text>
+                          <Text fontSize="sm" color="gray.600">Deadline: <Text as="span" color="gray.800">{getTimeRemaining(campaign.deadline)}</Text></Text>
                         )}
                         {campaign.type === "Treasury Grant" && (
-                          <Text fontSize="sm" color="gray.600">
-                            Expiry: <Text as="span" color="gray.800">{getTimeRemaining(campaign.applicationExpiry)}</Text>
-                          </Text>
+                          <Text fontSize="sm" color="gray.600">Expiry: <Text as="span" color="gray.800">{getTimeRemaining(campaign.applicationExpiry)}</Text></Text>
                         )}
                       </VStack>
                     </Box>
@@ -751,18 +586,13 @@ export default function AdminPage() {
                             borderRadius="full"
                             boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                             fontFamily="Poppins, sans-serif"
-                            _hover={{
-                              bgGradient: "linear(to-r, teal.400, teal.500)",
-                              color: "white",
-                              boxShadow: "md",
-                              transform: "scale(1.05)",
-                            }}
+                            _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                             px={6}
                             whiteSpace="nowrap"
                             overflow="hidden"
                             textOverflow="ellipsis"
                             onClick={() => handleVoteCampaign(campaign.id)}
-                            isLoading={loading}
+                            isDisabled={loading}
                             fontSize="sm"
                           >
                             Approve Project
@@ -778,18 +608,13 @@ export default function AdminPage() {
                               borderRadius="full"
                               boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                               fontFamily="Poppins, sans-serif"
-                              _hover={{
-                                bgGradient: "linear(to-r, teal.400, teal.500)",
-                                color: "white",
-                                boxShadow: "md",
-                                transform: "scale(1.05)",
-                              }}
+                              _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                               px={6}
                               whiteSpace="nowrap"
                               overflow="hidden"
                               textOverflow="ellipsis"
                               onClick={() => handleAutoReject(campaign.id)}
-                              isLoading={loading}
+                              isDisabled={loading}
                               fontSize="sm"
                             >
                               Reject
@@ -798,9 +623,7 @@ export default function AdminPage() {
                         )}
                       </HStack>
                     ) : !isVoter && campaign.status === "Pending" ? (
-                      <Text fontSize="sm" color="gray.600" textAlign="center" fontFamily="Poppins, sans-serif">
-                        Requires voter role to manage
-                      </Text>
+                      <Text fontSize="sm" color="gray.600" textAlign="center" fontFamily="Poppins, sans-serif">Requires voter role to manage</Text>
                     ) : campaign.status === "Rejected" && campaign.type === "Treasury Grant" && isVoter ? (
                       <Tooltip label="Resets rejection to pending status">
                         <Button
@@ -811,18 +634,13 @@ export default function AdminPage() {
                           borderRadius="full"
                           boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                           fontFamily="Poppins, sans-serif"
-                          _hover={{
-                            bgGradient: "linear(to-r, teal.400, teal.500)",
-                            color: "white",
-                            boxShadow: "md",
-                            transform: "scale(1.05)",
-                          }}
+                          _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                           px={6}
                           whiteSpace="nowrap"
                           overflow="hidden"
                           textOverflow="ellipsis"
                           onClick={() => handleOverrideRejection(campaign.id)}
-                          isLoading={loading}
+                          isDisabled={loading}
                           fontSize="sm"
                         >
                           Override Rejection
@@ -841,9 +659,7 @@ export default function AdminPage() {
                               Predefined: 30% (Proof of Concept), 30% (Beta), 40% (Final Product)
                             </Text>
                             <FormControl>
-                              <FormLabel fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">
-                                Override with Custom Milestones
-                              </FormLabel>
+                              <FormLabel fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">Override with Custom Milestones</FormLabel>
                               {customMilestones.map((m, idx) => (
                                 <Flex key={idx} gap={2} mb={2} direction={{ base: "column", md: "row" }}>
                                   <Input
@@ -876,12 +692,7 @@ export default function AdminPage() {
                                   borderRadius="full"
                                   boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                   fontFamily="Poppins, sans-serif"
-                                  _hover={{
-                                    bgGradient: "linear(to-r, teal.400, teal.500)",
-                                    color: "white",
-                                    boxShadow: "md",
-                                    transform: "scale(1.05)",
-                                  }}
+                                  _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                   px={4}
                                   whiteSpace="nowrap"
                                   overflow="hidden"
@@ -903,18 +714,13 @@ export default function AdminPage() {
                                   borderRadius="full"
                                   boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                   fontFamily="Poppins, sans-serif"
-                                  _hover={{
-                                    bgGradient: "linear(to-r, teal.400, teal.500)",
-                                    color: "white",
-                                    boxShadow: "md",
-                                    transform: "scale(1.05)",
-                                  }}
+                                  _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                   px={6}
                                   whiteSpace="nowrap"
                                   overflow="hidden"
                                   textOverflow="ellipsis"
                                   onClick={() => handleApproveCustomMilestones(campaign.id)}
-                                  isLoading={loading}
+                                  isDisabled={loading || !isVoter}
                                   fontSize="sm"
                                 >
                                   Submit Custom Milestones
@@ -926,18 +732,14 @@ export default function AdminPage() {
                           campaign.milestones.map((m) => (
                             <Box key={m.id} bg="gray.50" p={3} rounded="lg">
                               <Text fontSize="sm" color="gray.800" fontFamily="Poppins, sans-serif">
-                                {m.description} ({parseFloat(m.amount).toFixed(2)} ETH) {m.isPredefined && (
-                                  <Badge colorScheme="yellow" fontSize="xs">Predefined</Badge>
-                                )}
+                                {m.description} ({parseFloat(m.amount).toFixed(2)} ETH) {m.isPredefined && <Badge colorScheme="yellow" fontSize="xs">Predefined</Badge>}
                               </Text>
                               {m.proofCID ? (
                                 <Text fontSize="sm" color="teal.500">
                                   Proof: <ChakraLink href={`https://ipfs.io/ipfs/${m.proofCID}`} target="_blank">{m.proofCID.slice(0, 10)}...</ChakraLink>
                                 </Text>
                               ) : (
-                                <Text fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">
-                                  Proof: Awaiting submission from creator
-                                </Text>
+                                <Text fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">Proof: Awaiting submission from creator</Text>
                               )}
                               {m.rejectedAt && (
                                 <Text fontSize="sm" color="red.500">
@@ -955,18 +757,13 @@ export default function AdminPage() {
                                       borderRadius="full"
                                       boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                       fontFamily="Poppins, sans-serif"
-                                      _hover={{
-                                        bgGradient: "linear(to-r, teal.400, teal.500)",
-                                        color: "white",
-                                        boxShadow: "md",
-                                        transform: "scale(1.05)",
-                                      }}
+                                      _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                       px={4}
                                       whiteSpace="nowrap"
                                       overflow="hidden"
                                       textOverflow="ellipsis"
                                       onClick={() => handleApproveMilestone(campaign.id, m.id)}
-                                      isLoading={loading}
+                                      isDisabled={loading}
                                       fontSize="sm"
                                     >
                                       Approve
@@ -981,18 +778,13 @@ export default function AdminPage() {
                                       borderRadius="full"
                                       boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                       fontFamily="Poppins, sans-serif"
-                                      _hover={{
-                                        bgGradient: "linear(to-r, teal.400, teal.500)",
-                                        color: "white",
-                                        boxShadow: "md",
-                                        transform: "scale(1.05)",
-                                      }}
+                                      _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                       px={4}
                                       whiteSpace="nowrap"
                                       overflow="hidden"
                                       textOverflow="ellipsis"
                                       onClick={() => handleRejectMilestone(campaign.id, m.id)}
-                                      isLoading={loading}
+                                      isDisabled={loading}
                                       fontSize="sm"
                                     >
                                       Reject
@@ -1000,11 +792,7 @@ export default function AdminPage() {
                                   </Tooltip>
                                 </HStack>
                               )}
-                              {m.completed && (
-                                <Text fontSize="sm" color="green.500">
-                                  Completed: {m.completedAt}
-                                </Text>
-                              )}
+                              {m.completed && <Text fontSize="sm" color="green.500">Completed: {m.completedAt}</Text>}
                             </Box>
                           ))
                         )}
@@ -1020,12 +808,7 @@ export default function AdminPage() {
                                 borderRadius="full"
                                 boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                 fontFamily="Poppins, sans-serif"
-                                _hover={{
-                                  bgGradient: "linear(to-r, teal.400, teal.500)",
-                                  color: "white",
-                                  boxShadow: "md",
-                                  transform: "scale(1.05)",
-                                }}
+                                _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                 px={4}
                                 whiteSpace="nowrap"
                                 overflow="hidden"
@@ -1046,18 +829,13 @@ export default function AdminPage() {
                                 borderRadius="full"
                                 boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                 fontFamily="Poppins, sans-serif"
-                                _hover={{
-                                  bgGradient: "linear(to-r, teal.400, teal.500)",
-                                  color: "white",
-                                  boxShadow: "md",
-                                  transform: "scale(1.05)",
-                                }}
+                                _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                 px={4}
                                 whiteSpace="nowrap"
                                 overflow="hidden"
                                 textOverflow="ellipsis"
                                 onClick={() => handleRefundUnspentFunds(campaign.id)}
-                                isLoading={loading}
+                                isDisabled={loading}
                                 fontSize="sm"
                               >
                                 Refund Unspent
@@ -1073,18 +851,13 @@ export default function AdminPage() {
                               borderRadius="full"
                               boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                               fontFamily="Poppins, sans-serif"
-                              _hover={{
-                                bgGradient: "linear(to-r, red.400, red.500)",
-                                color: "white",
-                                boxShadow: "md",
-                                transform: "scale(1.05)",
-                              }}
+                              _hover={{ bgGradient: "linear(to-r, red.400, red.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                               px={4}
                               whiteSpace="nowrap"
                               overflow="hidden"
                               textOverflow="ellipsis"
                               onClick={() => openDeleteDialog(campaign)}
-                              isLoading={loading}
+                              isDisabled={loading}
                               fontSize="sm"
                               leftIcon={<FaTrash />}
                             >
@@ -1101,19 +874,11 @@ export default function AdminPage() {
                           <Text fontSize="sm" color="gray.600" fontWeight="bold" fontFamily="Poppins, sans-serif">
                             Funding Progress: {((parseFloat(campaign.amountRaised) / parseFloat(campaign.fundingGoal)) * 100).toFixed(1)}% Funded
                           </Text>
-                          <Progress
-                            value={(parseFloat(campaign.amountRaised) / parseFloat(campaign.fundingGoal)) * 100}
-                            colorScheme="teal"
-                            height="12"
-                            width="100%"
-                            rounded="md"
-                          />
+                          <Progress value={(parseFloat(campaign.amountRaised) / parseFloat(campaign.fundingGoal)) * 100} colorScheme="teal" height="12" width="100%" rounded="md" />
                         </VStack>
                         <HStack justify="center">
                           <FaUsers color="teal.600" size="16px" />
-                          <Text fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">
-                            {campaign.supportersCount} Contributors
-                          </Text>
+                          <Text fontSize="sm" color="gray.600" fontFamily="Poppins, sans-serif">{campaign.supportersCount} Contributors</Text>
                         </HStack>
                         <HStack spacing={3} justify="center" mt={3} wrap="wrap" gap={3}>
                           <Tooltip label="View full project details">
@@ -1127,12 +892,7 @@ export default function AdminPage() {
                                 borderRadius="full"
                                 boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                                 fontFamily="Poppins, sans-serif"
-                                _hover={{
-                                  bgGradient: "linear(to-r, teal.400, teal.500)",
-                                  color: "white",
-                                  boxShadow: "md",
-                                  transform: "scale(1.05)",
-                                }}
+                                _hover={{ bgGradient: "linear(to-r, teal.400, teal.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                                 px={4}
                                 whiteSpace="nowrap"
                                 overflow="hidden"
@@ -1152,18 +912,13 @@ export default function AdminPage() {
                               borderRadius="full"
                               boxShadow="0px 4px 12px rgba(0,0,0,0.1)"
                               fontFamily="Poppins, sans-serif"
-                              _hover={{
-                                bgGradient: "linear(to-r, red.400, red.500)",
-                                color: "white",
-                                boxShadow: "md",
-                                transform: "scale(1.05)",
-                              }}
+                              _hover={{ bgGradient: "linear(to-r, red.400, red.500)", color: "white", boxShadow: "md", transform: "scale(1.05)" }}
                               px={4}
                               whiteSpace="nowrap"
                               overflow="hidden"
                               textOverflow="ellipsis"
                               onClick={() => openDeleteDialog(campaign)}
-                              isLoading={loading}
+                              isDisabled={loading}
                               fontSize="sm"
                               leftIcon={<FaTrash />}
                             >
@@ -1180,42 +935,20 @@ export default function AdminPage() {
           )}
         </VStack>
 
-        {/* Delete Confirmation Dialog */}
-        <AlertDialog
-          isOpen={isDeleteDialogOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={closeDeleteDialog}
-        >
+        <AlertDialog isOpen={isDeleteDialogOpen} leastDestructiveRef={cancelRef} onClose={closeDeleteDialog}>
           <AlertDialogOverlay>
             <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold" fontFamily="Poppins, sans-serif">
-                Delete Campaign
-              </AlertDialogHeader>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold" fontFamily="Poppins, sans-serif">Delete Campaign</AlertDialogHeader>
               <AlertDialogBody fontFamily="Poppins, sans-serif">
-                Are you sure you want to delete "{campaignToDelete?.name}" (ID: {campaignToDelete?.id})?
-                This action is irreversible and will refund any remaining funds:
+                Are you sure you want to delete "{campaignToDelete?.name}" (ID: {campaignToDelete?.id})? This action is irreversible and will refund any remaining funds:
                 <Text mt={2} fontWeight="bold" color="red.500">
                   - Treasury: {(parseFloat(campaignToDelete?.amountRaised) - parseFloat(campaignToDelete?.amountRaised)).toFixed(2)} ETH
                   - Crowdfunded: {(parseFloat(campaignToDelete?.amountRaised) - parseFloat(campaignToDelete?.amountRaised)).toFixed(2)} ETH
                 </Text>
               </AlertDialogBody>
               <AlertDialogFooter>
-                <Button
-                  ref={cancelRef}
-                  fontFamily="Poppins, sans-serif"
-                  onClick={closeDeleteDialog}
-                  mr={3}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  colorScheme="red"
-                  onClick={handleDeleteCampaign}
-                  isLoading={loading}
-                  fontFamily="Poppins, sans-serif"
-                >
-                  Delete
-                </Button>
+                <Button ref={cancelRef} fontFamily="Poppins, sans-serif" onClick={closeDeleteDialog} mr={3}>Cancel</Button>
+                <Button colorScheme="red" onClick={handleDeleteCampaign} isDisabled={loading} fontFamily="Poppins, sans-serif">Delete</Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
