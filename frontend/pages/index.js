@@ -90,8 +90,6 @@ export default function Home() {
     setIsMounted(true);
   }, []);
 
-
-
   // Fetch data from the smart contract
   useEffect(() => {
     if (!abi) return; // Wait for ABI to load before proceeding
@@ -108,7 +106,6 @@ export default function Home() {
           const infuraUrl = process.env.NEXT_PUBLIC_MAINNET_RPC_URL;
           if (!infuraUrl) {
             console.warn("Infura URL not set. Falling back to a public RPC provider.");
-            // Fallback to a public Ethereum RPC provider (e.g., Cloudflare's Ethereum Gateway)
             provider = new ethers.JsonRpcProvider("https://cloudflare-eth.com");
           } else {
             provider = new ethers.JsonRpcProvider(infuraUrl);
@@ -116,7 +113,6 @@ export default function Home() {
           const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
         }
 
-        // Verify the provider can connect to the network
         const network = await provider.getNetwork();
         if (!network) {
           throw new Error("Could not connect to the Ethereum network.");
@@ -126,7 +122,6 @@ export default function Home() {
         const campaignId = 1;
         const campaign = await contract.campaigns(campaignId);
 
-        // Check if the campaign exists and has a name; if not, set spotlightCampaign to null
         if (campaign && campaign.name) {
           const amountRaised = campaign.amountRaised || 0n;
           const crowdfundedAmount = campaign.crowdfundedAmount || 0n;
@@ -141,10 +136,9 @@ export default function Home() {
           });
         } else {
           console.warn(`Campaign with ID ${campaignId} not found or missing name. Skipping spotlight campaign.`);
-          setSpotlightCampaign(null); // Gracefully handle missing campaign
+          setSpotlightCampaign(null);
         }
 
-        // Continue fetching other data even if the campaign is not found
         const campaignIds = await contract.campaignIds();
         let totalEthRaised = BigInt(0);
         let successfulProjects = 0;
@@ -158,7 +152,6 @@ export default function Home() {
             totalEthRaised += (camp.amountRaised || 0n) + (camp.crowdfundedAmount || 0n);
           } catch (err) {
             console.error(`Error fetching campaign ${i}:`, err);
-            // Skip this campaign and continue with the loop
           }
         }
 
@@ -174,7 +167,7 @@ export default function Home() {
     };
 
     fetchContractData();
-  }, [abi]); // Dependency on abi ensures consistent hook execution
+  }, [abi]);
 
   // Loading state
   if (loading) {
@@ -219,10 +212,10 @@ export default function Home() {
       w="100vw"
       m={0}
       p={0}
-      mt="64px" // Move content down 64px to sit below fixed navbar
-      key={isMounted ? "mounted" : "unmounted"} // Stabilize render
+      mt="64px"
+      key={isMounted ? "mounted" : "unmounted"}
     >
-      {/* Updated Hero Section */}
+      {/* Hero Section */}
       <MotionBox
         w="100vw"
         maxW="100vw"
@@ -239,8 +232,8 @@ export default function Home() {
           src="/hero-image.png"
           alt="Creova Hero - Decentralized Funding Platform"
           w="100vw"
-          h="100%" // Match container height
-          position="absolute" // Absolute to fill parent
+          h="100%"
+          position="absolute"
           top={0}
           left={0}
           objectFit="cover"
@@ -506,7 +499,7 @@ export default function Home() {
         )}
       </Container>
 
-      {/* Testimonials Section */}
+      {/* Updated Testimonials Section */}
       <Container maxW="container.xl" py={14} mb={22}>
         <Heading
           as="h2"
@@ -521,30 +514,68 @@ export default function Home() {
           What Industry Leaders Say
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
           {[
-            { quote: "“Decentralized funding enables new kinds of projects that would not have been possible before.”", name: "– Vitalik Buterin Ethereum Co-Founder" },
-            { quote: "“If we want more open innovation, we need to fund it in an open and decentralised way.”", name: "– Juan Benet Founder, IPFS & Filecoin" },
-            { quote: "“The most important problems of our time—climate, governance, finance—need public, transparent funding.”", name: "– Glen Weyl RadicalxChange, Web3 Economist & Ethereum Contributor" },
+            {
+              quote: "“Decentralized systems can fund public goods without gatekeepers—blockchain lets us coordinate value creation at scale.”",
+              name: "Vitalik Buterin",
+              title: "Ethereum Co-Founder",
+              badge: "/ethereum-logo.png",
+            },
+            {
+              quote: "“The future of the web is decentralized infrastructure—where creators own their work and users control their data.”",
+              name: "Juan Benet",
+              title: "Founder, IPFS & Filecoin",
+              badge: "/ipfs-logo.png",
+            },
+            {
+              quote: "“Scaling Ethereum means scaling opportunity—making Web3 accessible to everyone, everywhere.”",
+              name: "Mihailo Bjelic",
+              title: "Polygon Co-Founder",
+              badge: "/polygon-logo.png",
+            },
           ].map((testimonial, idx) => (
             <MotionBox
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 * idx }}
-              p={6}
+              initial={{ x: 100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: idx * 0.3 }}
+              p={8}
               bg={cardBg}
               borderRadius="xl"
+              borderWidth="1px"
+              borderColor="teal.200"
               boxShadow={`0 12px 32px ${shadowColor}`}
-              minH="250px"
+              _hover={{ transform: "translateY(-8px)", boxShadow: `0 20px 40px ${shadowColor}` }}
+              minH="300px"
             >
-              <VStack spacing={4} height="100%" justify="space-between">
-                <Text fontSize="md" color={subTextColor} flex="1" display="flex" alignItems="center">
+              <VStack spacing={6} height="100%" justify="space-between">
+                <Text fontSize="lg" color={subTextColor} fontWeight="medium" textAlign="center">
                   {testimonial.quote}
                 </Text>
-                <Text fontWeight="bold" color={useColorModeValue("teal.600", "teal.300")} width="100%" textAlign="left">
-                  {testimonial.name}
-                </Text>
+                <VStack spacing={2}>
+                  <Box w="40px" h="2px" bg="teal.400" borderRadius="full" />
+                  <HStack spacing={3}>
+                    <motion.div whileHover={{ rotate: 360, transition: { duration: 0.8 } }}>
+                      <Image
+                        src={testimonial.badge}
+                        alt={`${testimonial.name} badge`}
+                        boxSize="60px"
+                        borderRadius="full"
+                        bgGradient="linear(to-r, teal.400, teal.600)"
+                        p={2}
+                      />
+                    </motion.div>
+                    <VStack spacing={0} align="start">
+                      <Text fontWeight="bold" color="teal.500" fontFamily="Poppins, sans-serif">
+                        {testimonial.name}
+                      </Text>
+                      <Text fontSize="sm" color={subTextColor}>
+                        {testimonial.title}
+                      </Text>
+                    </VStack>
+                  </HStack>
+                </VStack>
               </VStack>
             </MotionBox>
           ))}
