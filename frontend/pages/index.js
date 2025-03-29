@@ -14,7 +14,7 @@ const MotionImage = motion(Image);
 const MotionSpan = motion.span;
 
 // Contract address from environment variable
-const CONTRACT_ADDRESS = "0x8e857937E1Fe63bf5fe709413B4521F2F4261533";
+const CONTRACT_ADDRESS = "0xFBf21D3c9Ee2c0ed00E243E1260eC77fdD17DA02";
 
 // StatNumber component (unchanged)
 const StatNumber = ({ endValue, suffix = "" }) => {

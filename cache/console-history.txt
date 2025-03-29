@@ -1,6 +1,0 @@
-.exit
-.exigt
-await fp.isKYCVerified("0xc225947942dB485c107dEDD6E476eE69ECA9Df4a")
-const fp = await ethers.getContractAt("FundingPool", "0x8e857937E1Fe63bf5fe709413B4521F2F4261533")
-await fp.updateKYCStatus("0xc225947942dB485c107dEDD6E476eE69ECA9Df4a", true);
-const fp = await ethers.getContractAt("FundingPool", "0x8e857937E1Fe63bf5fe709413B4521F2F4261533");
