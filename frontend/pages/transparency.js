@@ -400,7 +400,7 @@ export default function Transparency() {
             mx="auto" 
             textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
           >
-            A transparent view into Creova’s decentralised funding ecosystem.
+            A transparent view into Creova’s decentralised funding ecosystem. All funding activity on Creova is recorded on-chain. This dashboard shows real-time data from our smart contracts and treasury.
           </Text>
         </MotionBox>
 
@@ -415,7 +415,7 @@ export default function Transparency() {
           mb={6} 
           textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
         >
-          All funding activity on Creova is recorded on-chain. This dashboard shows real-time data from our smart contracts and treasury.
+          
         </Text>
 
         {uiState.error && (

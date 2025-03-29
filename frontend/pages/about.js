@@ -387,11 +387,11 @@ export default function About() {
               lineHeight={1.6}
               fontFamily="Inter, sans-serif" // New font
             >
-              I started Creova because I believe funding should be open to everyone—not just those with connections. Too often, bold ideas are sidelined by a system not built for them. Creova changes that.
+              "I started Creova because I believe funding should be open to everyone—not just those with connections. Too often, bold ideas are sidelined by a system not built for them. Creova changes that.
               <br /><br />
               It’s a platform for dreamers and doers—decentralised, transparent, and community-driven. This isn’t just funding; it’s a new way to empower impact.
               <br /><br />
-              If you’re building something meaningful, Creova is for you.
+              If you’re building something meaningful, Creova is for you."
             </Text>
             <HStack spacing={3} align="center">
               <Text
@@ -400,12 +400,12 @@ export default function About() {
                 color={textColor}
                 fontFamily="Inter, sans-serif" 
               >
-                — Adam, Founder, Creova
+                — Adam, Founder
               </Text>
               <Image
                 src="/logo.png"
                 alt="Creova Logo"
-                boxSize={{ base: "64px", md: "80px" }} 
+                boxSize={{ base: "128px", md: "160px" }} 
                 objectFit="contain"
               />
             </HStack>
