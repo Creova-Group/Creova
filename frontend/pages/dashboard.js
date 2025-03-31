@@ -9,10 +9,12 @@ import {
 import { motion } from "framer-motion";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
+import NextLink from "next/link"; // Added for NextLink usage
 import { uploadFileToIPFS } from "../utils/pinata";
 import Footer from "../components/Footer";
 import { FaEthereum, FaUser, FaUsers, FaGift, FaFileUpload } from "react-icons/fa";
 import { getFundingPoolContract, CONTRACT_ADDRESS } from "../lib/getFundingPoolContract";
+
 const MotionBox = motion(Box);
 const MAX_PROOF_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -64,6 +66,11 @@ export default function Dashboard() {
     "md",                          // Light mode
     "0 4px 6px rgba(255, 255, 255, 0.1)"  // Dark mode
   );
+
+  // Added variables to match About page button styles
+  const buttonBg = useColorModeValue("white", "gray.700");
+  const buttonText = useColorModeValue("teal.600", "teal.200");
+  const shadowColor = useColorModeValue("rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)");
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -558,26 +565,51 @@ export default function Dashboard() {
           </SimpleGrid>
 
           <HStack spacing={4} flexWrap="wrap" justify="center">
-            <Button
-              colorScheme="teal"
-              size="md"
-              rounded="lg"
-              px={6}
-              onClick={() => router.push("/funding")}
-            >
-              Create Campaign
-            </Button>
-            {!isKYCVerified && (
+            <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
-                colorScheme="teal"
-                size="md"
-                rounded="lg"
-                px={6}
-                onClick={handleKYCVerification}
-                isLoading={loading}
+                as={NextLink}
+                href="/funding"
+                bg={buttonBg}
+                color={buttonText}
+                _hover={{ bg: "transparent", color: "white", borderColor: "white" }}
+                borderWidth="2px"
+                borderColor="white"
+                size={{ base: "md", md: "lg" }}
+                px={{ base: 8, md: 8 }}
+                py={{ base: 6, md: 6 }}
+                fontSize={{ base: "sm", md: "lg" }}
+                boxShadow={`0 8px 24px ${shadowColor}`}
+                borderRadius="full"
+                transition="all 0.3s ease"
+                w={{ base: "80%", md: "auto" }}
+                mb={{ base: 4, md: 0 }}
               >
-                Get KYC Verified
+                Create Campaign
               </Button>
+            </MotionBox>
+            {!isKYCVerified && (
+              <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  bg={buttonBg}
+                  color={buttonText}
+                  _hover={{ bg: "transparent", color: "white", borderColor: "white" }}
+                  borderWidth="2px"
+                  borderColor="white"
+                  size={{ base: "md", md: "lg" }}
+                  px={{ base: 8, md: 8 }}
+                  py={{ base: 6, md: 6 }}
+                  fontSize={{ base: "sm", md: "lg" }}
+                  boxShadow={`0 8px 24px ${shadowColor}`}
+                  borderRadius="full"
+                  transition="all 0.3s ease"
+                  w={{ base: "80%", md: "auto" }}
+                  mb={{ base: 4, md: 0 }}
+                  onClick={handleKYCVerification}
+                  isLoading={loading}
+                >
+                  Get KYC Verified
+                </Button>
+              </MotionBox>
             )}
             <Select
               value={filter}
@@ -603,16 +635,27 @@ export default function Dashboard() {
               />
               <InputRightElement>{isSearching && <Spinner size="sm" color="teal.500" />}</InputRightElement>
             </InputGroup>
-            <Button
-              colorScheme="teal"
-              size="md"
-              rounded="lg"
-              px={6}
-              onClick={refreshData}
-              isLoading={loading}
-            >
-              Refresh
-            </Button>
+            <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                bg={buttonBg}
+                color={buttonText}
+                _hover={{ bg: "transparent", color: "white", borderColor: "white" }}
+                borderWidth="2px"
+                borderColor="white"
+                size={{ base: "md", md: "lg" }}
+                px={{ base: 8, md: 8 }}
+                py={{ base: 6, md: 6 }}
+                fontSize={{ base: "sm", md: "lg" }}
+                boxShadow={`0 8px 24px ${shadowColor}`}
+                borderRadius="full"
+                transition="all 0.3s ease"
+                w={{ base: "80%", md: "auto" }}
+                onClick={refreshData}
+                isLoading={loading}
+              >
+                Refresh
+              </Button>
+            </MotionBox>
           </HStack>
 
           <Box textAlign="left">

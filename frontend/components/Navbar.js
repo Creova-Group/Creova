@@ -4,7 +4,8 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import dynamic from "next/dynamic";
+const ClientOnlyConnectButton = dynamic(() => import("./ClientOnlyConnectButton"), { ssr: false });
 
 const GOLDEN_RATIO = 1.618; // Used for proportions
 
@@ -71,7 +72,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Centered */}
-            <Flex gap={6} align="center" display={{ base: "none", md: "flex" }}>
+            <Flex gap={6} align="center">
                 <Link href="/about">
                     <Button 
                         variant="ghost" 
@@ -172,9 +173,9 @@ const Navbar = () => {
                     </MenuList>
                 </Menu>
 
-                {/* Connect Wallet (Stays the same) */}
+                {/* Connect Wallet Button */}
                 <Box ml={2}>
-                    <ConnectButton showBalance={false} chainStatus="none" accountStatus="address" />
+                    <ClientOnlyConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
                 </Box>
 
                 {/* Dark Mode Toggle */}
@@ -245,9 +246,9 @@ const Navbar = () => {
                         Transparency
                     </MenuItem>
                     {/* Connect Wallet for Mobile */}
-                    <MenuItem>
-                        <Box w="100%">
-                            <ConnectButton showBalance={false} chainStatus="none" accountStatus="address" />
+                    <MenuItem as="div" closeOnSelect={false}>
+                        <Box px={4} py={2}>
+                            <ClientOnlyConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
                         </Box>
                     </MenuItem>
                 </MenuList>

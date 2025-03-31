@@ -1,16 +1,17 @@
+import { ethers } from "ethers";
+import FundingPoolABI from "../utils/FundingPoolABI.json";
 
-  import { ethers } from "ethers";
-  import FundingPoolABI from "../utils/FundingPoolABI.json";
+// ✅ Pull from env
+export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS;
+console.log("🧪 ENV VALUE:", process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS);
 
-  export const CONTRACT_ADDRESS = "0xFBf21D3c9Ee2c0ed00E243E1260eC77fdD17DA02";
+export const getFundingPoolContract = (providerOrSigner) => {
+  if (!providerOrSigner) {
+    console.error("❌ getFundingPoolContract received undefined providerOrSigner");
+  } else {
+    console.log("✅ getFundingPoolContract received:", providerOrSigner);
+    console.log("✅ Using contract address:", CONTRACT_ADDRESS);
+  }
 
-  export const getFundingPoolContract = (providerOrSigner) => {
-    if (!providerOrSigner) {
-      console.error("❌ getFundingPoolContract received undefined providerOrSigner");
-    } else {
-      console.log("✅ getFundingPoolContract received:", providerOrSigner);
-    }
-
-    return new ethers.Contract(CONTRACT_ADDRESS, FundingPoolABI.abi, providerOrSigner);
-  };
-  
+  return new ethers.Contract(CONTRACT_ADDRESS, FundingPoolABI.abi, providerOrSigner);
+};

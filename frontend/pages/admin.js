@@ -37,6 +37,7 @@ const MotionBox = motion(Box);
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS || "0x8e857937E1Fe63bf5fe709413B4521F2F4261533";
 
 export default function AdminPage() {
+  const [hasMounted, setHasMounted] = useState(false);
   const { address, isConnected, isConnecting } = useAccount();
   const [campaigns, setCampaigns] = useState([]);
   const [newVoter, setNewVoter] = useState("");
@@ -320,8 +321,16 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (isConnected && window.ethereum) loadContractData();
   }, [isConnected, address]);
+
+  if (!hasMounted) {
+    return null; // Wait until after hydration
+  }
 
   if (!isConnected || !address) {
     return (

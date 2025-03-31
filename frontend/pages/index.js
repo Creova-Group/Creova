@@ -14,8 +14,7 @@ const MotionImage = motion(Image);
 const MotionSpan = motion.span;
 
 // Contract address from environment variable
-const CONTRACT_ADDRESS = "0xFBf21D3c9Ee2c0ed00E243E1260eC77fdD17DA02";
-
+const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS;
 // StatNumber component (unchanged)
 const StatNumber = ({ endValue, suffix = "" }) => {
   const [count, setCount] = useState(0);
@@ -95,35 +94,18 @@ export default function Home() {
       setError(null);
 
       try {
-        let provider;
-        if (typeof window !== "undefined" && window.ethereum) {
-          provider = new ethers.BrowserProvider(window.ethereum);
-        } else {
-          const infuraUrl = process.env.NEXT_PUBLIC_MAINNET_RPC_URL;
-          if (!infuraUrl) {
-            console.warn("Infura URL not set. Falling back to a public RPC provider.");
-            provider = new ethers.JsonRpcProvider("https://cloudflare-eth.com");
-          } else {
-            provider = new ethers.JsonRpcProvider(infuraUrl);
-          }
-          const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
-        }
-
-        const network = await provider.getNetwork();
-        if (!network) {
-          throw new Error("Could not connect to the Ethereum network.");
-        }
-
+        const provider = new ethers.JsonRpcProvider("https://mainnet.infura.io/v3/efe6a4639bf8423db4d78007e357362d");
         const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+      
         const campaignId = 1;
         const campaign = await contract.campaigns(campaignId);
-
+      
         if (campaign && campaign.name) {
           const amountRaised = campaign.amountRaised || 0n;
           const crowdfundedAmount = campaign.crowdfundedAmount || 0n;
           const totalRaised = amountRaised + crowdfundedAmount;
           const amountRaisedEth = ethers.formatEther(totalRaised);
-
+      
           setSpotlightCampaign({
             name: campaign.name,
             amountRaised: amountRaisedEth,
@@ -133,6 +115,12 @@ export default function Home() {
         } else {
           console.warn(`Campaign with ID ${campaignId} not found or missing name. Skipping spotlight campaign.`);
           setSpotlightCampaign(null);
+        }
+  
+
+        const network = await provider.getNetwork();
+        if (!network) {
+          throw new Error("Could not connect to the Ethereum network.");
         }
 
         const campaignIds = await contract.campaignIds();

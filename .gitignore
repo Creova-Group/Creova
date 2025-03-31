@@ -1,26 +1,25 @@
-# Ignore environment variables & private keys
+# Environment variables & private keys
 .env
 
-# Ignore dependencies (these can be installed via package.json)
+# Node dependencies
 node_modules/
 
-# Ignore build files
+# Build output
 .next/
 build/
 dist/
+frontend/.next/
+frontend/.next/cache/
 
-# Ignore log files
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Ignore system files
-.DS_StoreCreova_Backup.zip
+# System files
+.DS_Store
 Creova_Backup.zip
-frontend/.next/cache/
-Creova_Backup.zip
-frontend/.next/cache/
-Creova_Backup.zip
-frontend/.next/cache/
 .qodo
-.env
+
+# Vercel local settings
+.vercel

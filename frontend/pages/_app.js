@@ -15,7 +15,10 @@ import Chatbot from "../components/Chatbot";
 
 if (typeof window !== "undefined") {
   window.ethers = ethers;
+  console.log("Creova Build ID: 2025-03-31-01 | Contract:", process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS);
+
 }
+
 
 const queryClient = new QueryClient();
 
@@ -40,8 +43,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <WagmiConfig config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider theme={customRainbowKitTheme} coolMode>
-            <Navbar />
+        <RainbowKitProvider chains={wagmiConfig.chains} theme={customRainbowKitTheme} coolMode>            <Navbar />
             <Box position="relative" minHeight="100vh" overflowX="hidden">
               <Component {...pageProps} />
               <ScreenSaver timeout={30000} />

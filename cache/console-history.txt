@@ -1,0 +1,15 @@
+.exit
+await contract.campaigns(1)
+await contract.campaignIds()
+const contract = new ethers.Contract(address, abi, provider);
+const address = "0xFBf21D3c9Ee2c0ed00E243E1260eC77fdD17DA02";
+const abi = JSON.parse(fs.readFileSync("./frontend/utils/FundingPoolABI.json")).abi;
+const fs = require("fs");
+const { ethers } = require("ethers");
+const provider = new ethers.InfuraProvider("mainnet", "efe6a4639bf8423db4d78007e357362d");
+const contract = new ethers.Contract(address, abi, provider);
+const provider = new ethers.providers.InfuraProvider("mainnet", "efe6a4639bf8423db4d78007e357362d");
+const address = "0xFBf21D3c9Ee2c0ed00E243E1260eC77fdD17DA02";
+const abi = JSON.parse(fs.readFileSync("./frontend/utils/FundingPoolABI.json")).abi;
+const fs = require("fs");
+const { ethers } = require("ethers");
