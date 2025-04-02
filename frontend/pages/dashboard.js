@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
-import NextLink from "next/link"; // Added for NextLink usage
+import NextLink from "next/link";
 import { uploadFileToIPFS } from "../utils/pinata";
 import Footer from "../components/Footer";
 import { FaEthereum, FaUser, FaUsers, FaGift, FaFileUpload } from "react-icons/fa";
@@ -47,27 +47,10 @@ export default function Dashboard() {
     "linear(to-br, #0D9488, #1A202C)"  // Dark mode
   );
 
-  const cardBg = useColorModeValue(
-    "white",        // Light mode
-    "gray.800"      // Dark mode
-  );
-
-  const textColor = useColorModeValue(
-    "gray.800",     // Light mode
-    "white"         // Dark mode
-  );
-
-  const subTextColor = useColorModeValue(
-    "gray.600",     // Light mode
-    "gray.300"      // Dark mode
-  );
-
-  const shadow = useColorModeValue(
-    "md",                          // Light mode
-    "0 4px 6px rgba(255, 255, 255, 0.1)"  // Dark mode
-  );
-
-  // Added variables to match About page button styles
+  const cardBg = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
+  const subTextColor = useColorModeValue("gray.600", "gray.300");
+  const shadow = useColorModeValue("md", "0 4px 6px rgba(255, 255, 255, 0.1)");
   const buttonBg = useColorModeValue("white", "gray.700");
   const buttonText = useColorModeValue("teal.600", "teal.200");
   const shadowColor = useColorModeValue("rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)");
@@ -98,7 +81,7 @@ export default function Dashboard() {
         const campaignCount = await fundingContract.campaignIds();
         const loadedProjects = [];
 
-        for (let i = 1; i <= campaignCount; i++) {
+        for (let i = 1; i <= Number(campaignCount); i++) {
           const campaign = await fundingContract.campaigns(i);
           const milestonesData = await fundingContract.getCampaignMilestones(i);
           const emergencyOverride = await fundingContract.emergencyWithdrawalOverrides(address, i);
@@ -137,7 +120,7 @@ export default function Dashboard() {
             id: i,
             name: campaign.name,
             creator: campaign.creator,
-            status: ["Pending", "Approved", "Rejected"][campaign.status],
+            status: ["Pending", "Approved", "Rejected"][Number(campaign.status)],
             type: campaign.fundingType.toString() === "0" ? "Crowdfunding" : "TreasuryGrant",
             fundingGoal: ethers.formatEther(campaign.fundingGoal),
             amountRaised: ethers.formatEther(campaign.amountRaised),
@@ -310,6 +293,9 @@ export default function Dashboard() {
       sumsubLauncher.launch();
 
       const checkKYCStatus = setInterval(async () => {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const fundingContract = getFundingPoolContract(signer);
         const updatedStatus = await fundingContract.isKYCVerified(address);
         if (updatedStatus) {
           setIsKYCVerified(true);
@@ -329,10 +315,10 @@ export default function Dashboard() {
     setLastUpdated(null);
   };
 
-  const handleSearchChange = (value) => {
+  const handleSearchChange = (e) => {
     setIsSearching(true);
     const timer = setTimeout(() => {
-      setSearchQuery(value);
+      setSearchQuery(e.target.value);
       setIsSearching(false);
     }, 300);
     return () => clearTimeout(timer);
@@ -512,6 +498,50 @@ export default function Dashboard() {
     </MotionBox>
   );
 
+  // Check wallet connection and show toast if not connected
+  if (!isConnected || !address) {
+    toast({
+      title: "Wallet Not Connected",
+      description: "Connect your wallet to view your projects.",
+      status: "warning",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+    return (
+      <Flex 
+        direction="column" 
+        minH="100vh" 
+        bgGradient={bgGradient}
+      >
+        <Container maxW="container.xl" py={24} textAlign="center">
+          <Heading 
+            as="h1" 
+            size={{ base: "xl", md: "3xl" }} 
+            fontWeight="extrabold" 
+            color="white" 
+            textShadow="0 4px 6px rgba(0, 0, 0, 0.8)" 
+            fontFamily="Poppins, sans-serif" 
+            mb={4}
+          >
+            Your Project Dashboard
+          </Heading>
+          <Text 
+            fontSize={{ base: "md", md: "lg" }} 
+            color="white" 
+            fontWeight="semibold" 
+            maxW="800px" 
+            mx="auto" 
+            textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
+          >
+            Please connect your wallet to view your projects and contributions.
+          </Text>
+        </Container>
+        <Footer />
+      </Flex>
+    );
+  }
+
   if (loading) {
     return (
       <Flex 
@@ -627,7 +657,7 @@ export default function Dashboard() {
             <InputGroup w={{ base: "full", md: "300px" }}>
               <Input
                 placeholder="Search your projects..."
-                onChange={(e) => handleSearchChange(e.target.value)}
+                onChange={handleSearchChange}
                 bg={cardBg}
                 rounded="lg"
                 color={textColor}

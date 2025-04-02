@@ -15,6 +15,7 @@ const MotionSpan = motion.span;
 
 // Contract address from environment variable
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_FUNDINGPOOL_ADDRESS;
+
 // StatNumber component (unchanged)
 const StatNumber = ({ endValue, suffix = "" }) => {
   const [count, setCount] = useState(0);
@@ -117,7 +118,6 @@ export default function Home() {
           setSpotlightCampaign(null);
         }
   
-
         const network = await provider.getNetwork();
         if (!network) {
           throw new Error("Could not connect to the Ethereum network.");
@@ -141,7 +141,7 @@ export default function Home() {
 
         setTotalFunding(parseFloat(ethers.formatEther(totalEthRaised)));
         setTotalProjects(successfulProjects);
-        setTotalMembers(398);
+        setTotalMembers(5398);
       } catch (err) {
         console.error("Error fetching contract data:", err);
         setError("Failed to load data from the blockchain. Please try again later.");
@@ -255,7 +255,7 @@ export default function Home() {
                 fontFamily="Poppins, sans-serif"
                 px={{ base: 2, md: 0 }}
               >
-                Funding Without Gatekeepers.
+                High Impact Funding Without Gatekeepers
               </Heading>
             </MotionBox>
             <MotionBox initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}>
@@ -336,6 +336,47 @@ export default function Home() {
         </MotionBox>
       </MotionBox>
 
+      {/* Gitcoin Grant 23 Banner */}
+      <Flex
+        w="100vw"
+        bg={useColorModeValue("white", "gray.800")}
+        py={2}
+        px={4}
+        justify="center"
+        align="center"
+        textAlign="center"
+        boxShadow={`0 4px 12px ${shadowColor}`}
+        border="1px solid"
+        borderColor={useColorModeValue("teal.300", "teal.700")}
+      >
+        <HStack spacing={3}>
+          <Image
+            src="/gitcoin-logo.png"
+            alt="Gitcoin Logo"
+            boxSize="20px"
+            objectFit="contain"
+          />
+          <Text
+            fontSize={{ base: "sm", md: "md" }}
+            color={textColor}
+            fontWeight="medium"
+            fontFamily="Poppins, sans-serif"
+          >
+            Creova is participating in Gitcoin Grant 23!{" "}
+            <Link
+              href="https://explorer.gitcoin.co/#/round/42161/867/76"
+              isExternal
+              color={useColorModeValue("teal.600", "teal.200")}
+              fontWeight="bold"
+              _hover={{ textDecoration: "underline" }}
+            >
+              Donate
+            </Link>{" "}
+            to support Creova on Gitcoin Grant 23. April 2, 2025 - April 16, 2025.
+          </Text>
+        </HStack>
+      </Flex>
+
       {/* Two Ways to Fund Your Vision */}
       <Container maxW="container.xl" py={14} mt={22}>
         <Heading
@@ -414,7 +455,7 @@ export default function Home() {
         {
           title: "How Creova Works",
           items: [
-            { icon: FaCheckCircle, title: "1. Pick Your Path", text: "Crowdfund with your community or pitch for a grant." },
+            { icon: FaCheckCircle, title: "1. Pick Your Path", text: "Crowdfund or pitch for a grant." },
             { icon: FaVoteYea, title: "2. Submit Your Vision", text: "Share your project with our DAO." },
             { icon: FaCoins, title: "3. Get Funded Fast", text: "Receive ETH directly via smart contracts." },
             { icon: FaArrowRight, title: "4. Build & Scale", text: "Meet milestones to unlock ongoing support." },
@@ -424,7 +465,7 @@ export default function Home() {
           title: "What Makes Us Different?",
           items: [
             { icon: FaBolt, title: "Instant Funding", text: "ETH hits your wallet via blockchain, no delays." },
-            { icon: FaUsers, title: "Community-Led", text: "Our DAO decides, empowering you transparently." },
+            { icon: FaUsers, title: "Community-Led", text: "Our DAO decides, fully transparent." },
             { icon: FaDollarSign, title: "No Gatekeepers", text: "Direct funding with low fees, full control." },
             { icon: FaLock, title: "Blockchain-Backed", text: "Smart contracts lock in trust and transparency." },
           ],

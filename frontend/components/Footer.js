@@ -1,5 +1,5 @@
 import { Box, Flex, Text, Link, Stack, Icon, Image, useColorModeValue } from "@chakra-ui/react";
-import { FaTwitter, FaDiscord, FaGithub, FaLinkedin, FaFacebook, FaTelegram, FaInstagram } from "react-icons/fa";
+import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   // Dynamic styles using useColorModeValue
@@ -56,7 +56,7 @@ export default function Footer() {
 
         {/* Social Media Icons with enhanced hover effects */}
         <Stack direction="row" spacing={6}>
-          <Link href="https://twitter.com/yourusername" isExternal>
+          <Link href="https://x.com/Creovaxyz" isExternal>
             <Icon 
               as={FaTwitter} 
               boxSize={6} 
@@ -64,15 +64,7 @@ export default function Footer() {
               transition="0.2s ease" 
             />
           </Link>
-          <Link href="https://discord.com/invite/yourserver" isExternal>
-            <Icon 
-              as={FaDiscord} 
-              boxSize={6} 
-              _hover={{ color: hoverColor, transform: "translateY(-3px)" }} 
-              transition="0.2s ease" 
-            />
-          </Link>
-          <Link href="https://github.com/yourrepo" isExternal>
+          <Link href="https://github.com/Creova-Group/Creova" isExternal>
             <Icon 
               as={FaGithub} 
               boxSize={6} 
@@ -80,33 +72,9 @@ export default function Footer() {
               transition="0.2s ease" 
             />
           </Link>
-          <Link href="https://linkedin.com/company/yourcompany" isExternal>
+          <Link href="https://www.linkedin.com/company/creova-xyz/?viewAsMember=true" isExternal>
             <Icon 
               as={FaLinkedin} 
-              boxSize={6} 
-              _hover={{ color: hoverColor, transform: "translateY(-3px)" }} 
-              transition="0.2s ease" 
-            />
-          </Link>
-          <Link href="https://facebook.com/yourpage" isExternal>
-            <Icon 
-              as={FaFacebook} 
-              boxSize={6} 
-              _hover={{ color: hoverColor, transform: "translateY(-3px)" }} 
-              transition="0.2s ease" 
-            />
-          </Link>
-          <Link href="https://t.me/yourchannel" isExternal>
-            <Icon 
-              as={FaTelegram} 
-              boxSize={6} 
-              _hover={{ color: hoverColor, transform: "translateY(-3px)" }} 
-              transition="0.2s ease" 
-            />
-          </Link>
-          <Link href="https://instagram.com/youraccount" isExternal>
-            <Icon 
-              as={FaInstagram} 
               boxSize={6} 
               _hover={{ color: hoverColor, transform: "translateY(-3px)" }} 
               transition="0.2s ease" 

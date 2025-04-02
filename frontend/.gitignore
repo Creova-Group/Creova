@@ -1,20 +1,25 @@
-# Environment files
+# Environment variables & private keys
 .env
 
-
-# Node modules
+# Node dependencies
 node_modules/
 
-# Next.js build output
+# Build output
 .next/
+build/
+dist/
+frontend/.next/
+frontend/.next/cache/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS files
+# System files
 .DS_Store
+Creova_Backup.zip
+.qodo
 
 # Vercel local settings
 .vercel

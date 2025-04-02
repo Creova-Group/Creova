@@ -35,18 +35,18 @@ const Navbar = () => {
     );
     
     const toggleButtonBg = useColorModeValue(
-        "gray.300",  // Light mode (always light gray)
-        "gray.600"   // Dark mode (darker gray for visibility)
+        "gray.300",  // Light mode
+        "gray.600"   // Dark mode
     );
 
     // Navbar Size Adjustments
-    const navbarHeight = 64; // Fixed navbar height
-    const logoHeight = 40; // Explicitly set logo height for perfect centering
+    const navbarHeight = 64;
+    const logoHeight = 40;
 
     return (
         <Box
             bgGradient={navBg}
-            px={8}
+            px={{ base: 4, md: 8 }} // Reduced padding on mobile
             py={0}
             position="fixed"
             top="0"
@@ -71,8 +71,12 @@ const Navbar = () => {
                 </Flex>
             </Link>
 
-            {/* Desktop Navigation - Centered */}
-            <Flex gap={6} align="center">
+            {/* Desktop Navigation - Hidden on Mobile */}
+            <Flex 
+                gap={6} 
+                align="center" 
+                display={{ base: "none", md: "flex" }} // Hide on mobile
+            >
                 <Link href="/about">
                     <Button 
                         variant="ghost" 
@@ -202,6 +206,7 @@ const Navbar = () => {
                     bg={menuBg} 
                     borderColor={hoverBg}
                     color={buttonTextColor}
+                    minWidth="200px" // Ensure enough width for content
                 >
                     <MenuItem 
                         onClick={() => router.push("/about")} 
@@ -249,6 +254,19 @@ const Navbar = () => {
                     <MenuItem as="div" closeOnSelect={false}>
                         <Box px={4} py={2}>
                             <ClientOnlyConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
+                        </Box>
+                    </MenuItem>
+                    {/* Dark Mode Toggle for Mobile */}
+                    <MenuItem as="div" closeOnSelect={false}>
+                        <Box px={4} py={2}>
+                            <IconButton
+                                aria-label="Toggle theme (Light/Dark Mode)"
+                                icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                                onClick={toggleColorMode}
+                                color={buttonTextColor}
+                                bg={toggleButtonBg}
+                                _hover={{ bg: hoverBg, color: "white" }}
+                            />
                         </Box>
                     </MenuItem>
                 </MenuList>
