@@ -10,17 +10,12 @@ const solutions = [
   {
     icon: FaCoins,
     title: "Crowdfunding",
-    text: "Launch high-impact projects with instant, community-driven funding—no intermediaries required.",
+    text: "Enable community-driven support for open, non-commercial projects—no intermediaries required.",
   },
   {
     icon: FaUsers,
     title: "Treasury Grants",
-    text: "Secure strategic funding for high-impact initiatives through transparent, community-voted grants.",
-  },
-  {
-    icon: FaHandshake,
-    title: "Tokenised Revenue Sharing",
-    text: "Share your project’s success with backers via tokenised future earnings, fostering community investment.   COMING SOON",
+    text: "Receive milestone-based support from a decentralised community treasury for public goods projects.",
   },
 ];
 
@@ -77,7 +72,7 @@ export default function Solutions() {
             textShadow={useColorModeValue("0 2px 4px rgba(0, 0, 0, 0.8)", "0 2px 6px rgba(0, 0, 0, 0.9)")}
             px={{ base: 2, md: 0 }}
           >
-            Creova offers innovative funding solutions to empower communities and creators, bringing <strong>high-impact projects</strong> to life with speed and transparency.
+            Creova offers open-source tools that empower communities and creators to support public goods projects through decentralised, transparent funding.
           </Text>
           <HStack
             spacing={{ base: 4, md: 5 }}
@@ -151,7 +146,7 @@ export default function Solutions() {
           Our Funding Solutions
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} justifyItems="center">
           {solutions.map((solution, idx) => (
             <MotionBox
               key={idx}
@@ -281,10 +276,10 @@ export default function Solutions() {
         >
           <Box textAlign={{ base: "center", md: "left" }}>
             <Heading as="h2" size="xl" mb={4} color={textColor} fontFamily="Poppins, sans-serif">
-              Ready to Fund Your Impact?
+              Ready to Support Open Innovation?
             </Heading>
             <Text fontSize="lg" color={subTextColor}>
-              Start your high-impact journey with Creova today.
+              Start your journey supporting open, community-led projects with Creova today.
             </Text>
           </Box>
           <Button

@@ -84,15 +84,17 @@ export default function Grants() {
         <VStack spacing={{ base: 8, md: 8 }} w="100%">
           <Heading
             as="h1"
-            size={{ base: "lg", md: "3xl" }}
+            size={{ base: "2xl", md: "3xl" }}
             fontWeight="extrabold"
             color="white"
-            lineHeight={1.3}
-            textShadow={useColorModeValue("0 2px 8px rgba(0, 0, 0, 0.8)", "0 2px 8px rgba(255, 255, 255, 0.1)")}
+            textAlign="center"
+            lineHeight={1.2}
             fontFamily="Poppins, sans-serif"
-            px={{ base: 2, md: 0 }}
+            textShadow="0 4px 8px rgba(0, 0, 0, 0.6)"
+            px={{ base: 4, md: 6 }}
+            mb={4}
           >
-            Empower Your Vision with Treasury Grants
+            Access Open-Source Funding with Treasury Grants
           </Heading>
           <Text
             fontSize={{ base: "sm", md: "lg" }}
@@ -103,20 +105,9 @@ export default function Grants() {
             lineHeight={1.7}
             textShadow={useColorModeValue("0 2px 4px rgba(0, 0, 0, 0.8)", "0 2px 4px rgba(255, 255, 255, 0.1)")}
             px={{ base: 2, md: 0 }}
+            mb={6}
           >
-            Milestone-based grants for projects in education, sustainability, and public good.
-          </Text>
-          <Text
-            fontSize={{ base: "sm", md: "lg" }}
-            color="white"
-            mt={6}
-            maxW={{ base: "90%", md: "800px" }}
-            mx="auto"
-            lineHeight={1.7}
-            textShadow={useColorModeValue("0 2px 4px rgba(0, 0, 0, 0.8)", "0 2px 4px rgba(255, 255, 255, 0.1)")}
-            px={{ base: 2, md: 0 }}
-          >
-            Creova fuels bold ideas with direct Treasury funding—no crowdfunding delays. From clean energy to education, launch your impact with Web3 speed and transparency.
+            Transparent, milestone-based grants for projects advancing education, open-source tools, or the public good. Creova supports meaningful, community-aligned projects through treasury grants—without the need for token launches or crowdfunding rounds. Start building with integrity and transparency.
           </Text>
           <HStack
             spacing={{ base: 4, md: 5 }}
@@ -315,10 +306,10 @@ export default function Grants() {
         >
           <Box textAlign={{ base: "center", md: "left" }} maxW={{ md: "60%" }}>
             <Heading as="h2" size="xl" mb={spacing.sm} color={textColor}>
-              Ready to Fund Your Impact?
+              Ready to Support Public Goods?
             </Heading>
             <Text fontSize="lg" color={subTextColor}>
-              Ditch the crowdfunding grind—apply for a Treasury Grant from our 10% quarterly pool, launching once the 1% fee pool builds the Treasury!
+              Apply for a milestone-based Treasury Grant and receive transparent, non-commercial support to accelerate your mission.
             </Text>
           </Box>
           <Button

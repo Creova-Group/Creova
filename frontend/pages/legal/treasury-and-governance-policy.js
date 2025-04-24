@@ -5,7 +5,7 @@ export default function TreasuryAndGovernancePolicy() {
   return (
     <Box pt={20} mt={24} py={10} pX={8} maxW="container.xl" mx="auto">
       <Text fontSize="3xl" fontWeight="bold" mb={6} color="gray.900">
-        Creova Treasury & Governance Policy
+        Treasury & Governance Policy for Public Goods Funding
       </Text>
       <Text fontSize="sm" mb={4}>
         Last Updated: 17 March 2025
@@ -17,7 +17,7 @@ export default function TreasuryAndGovernancePolicy() {
         </Text>
         <Text fontSize="md">
           Creova ("we," "us," or "our") operates a decentralised Web3 funding platform, managed by [Creova Group Ltd], a [company] registered in [England/Wales/Scotland/Northern Ireland, 16336209
-          ]. The Platform supports high-impact projects through crowdfunding and treasury grants via the FundingPool smart contract deployed on the Ethereum blockchain at [insert contract address]. This Treasury & Governance Policy ("Policy") outlines how the Creova treasury is managed, how funds are allocated, and the governance mechanisms ensuring fairness, transparency, and sustainability. By participating in the treasury system, you agree to abide by this Policy.
+          ]. The Platform supports public goods projects through non-commercial crowdfunding and treasury grants via the FundingPool smart contract deployed on the Ethereum blockchain at [insert contract address]. This Treasury & Governance Policy ("Policy") outlines how the Creova treasury is managed, how funds are allocated, and the governance mechanisms ensuring fairness, transparency, and sustainability. By participating in the treasury system, you agree to abide by this Policy.
         </Text>
       </Box>
 
@@ -26,7 +26,7 @@ export default function TreasuryAndGovernancePolicy() {
           2. Treasury Structure
         </Text>
         <Text fontSize="md">
-          The Creova treasury is an Ethereum-based, smart contract-controlled fund holding Ether (ETH) for allocation to approved high-impact projects.
+          The Creova treasury is an Ethereum-based, smart contract-controlled fund holding Ether (ETH) for allocation to approved public goods projects.
         </Text>
         <Text fontSize="md" mt={2}>
           Treasury funds are replenished through:
@@ -47,7 +47,7 @@ export default function TreasuryAndGovernancePolicy() {
         </Text>
         <Text fontSize="md" as="ul" pl={6} listStyleType="disc">
           <Text as="li">Quarterly Limits: Treasury funds are allocated quarterly, with a maximum of 10% of the smart contract’s balance per 90-day period (QUARTER_DURATION). This limit is recalculated at the start of each quarter or when the owner updates it via updateTreasuryLimit.</Text>
-          <Text as="li">Purpose: Funds are distributed exclusively to treasury grants for high-impact projects, defined as initiatives delivering significant social, environmental, technological, or economic benefits (per our Terms & Conditions).</Text>
+          <Text as="li">Purpose: Funds are distributed exclusively to treasury grants for public goods projects, defined as initiatives delivering significant social, environmental, technological, or economic benefits (per our Terms & Conditions).</Text>
           <Text as="li">Milestone-Based Disbursement: Treasury grants are released in tranches tied to predefined milestones (e.g., 30% Proof of Concept, 30% Beta, 40% Final Product), as specified in the smart contract. Funds are only disbursed upon voter or admin approval of milestone proofs.</Text>
         </Text>
       </Box>
@@ -81,7 +81,7 @@ export default function TreasuryAndGovernancePolicy() {
             <Text as="li">Users with the VOTER_ROLE, assigned by the contract owner, participate in grant approvals and milestone verifications.</Text>
             <Text as="li">The contract owner (initially the deployer) retains authority to update quarterly limits and assign roles.</Text>
           </Text>
-          <Text as="li">Treasury Review Committee: A designated group of Creova administrators and/or VOTER_ROLE holders may periodically review treasury disbursements to ensure alignment with high-impact project criteria and this Policy. Committee decisions are advisory and executed via smart contract functions.</Text>
+          <Text as="li">Treasury Review Committee: A designated group of Creova administrators and/or VOTER_ROLE holders may periodically review treasury disbursements to ensure alignment with public goods criteria and this Policy. Committee decisions are advisory and executed via smart contract functions.</Text>
         </Text>
       </Box>
 

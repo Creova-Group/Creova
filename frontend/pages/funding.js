@@ -154,7 +154,7 @@ export default function Funding() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [gasEstimate, setGasEstimate] = useState(null);
   const [lastTxHash, setLastTxHash] = useState(null);
-  const [tip, setTip] = useState("You should upload very clear full project details to increase your chances of approval");
+  const [tip, setTip] = useState("Provide detailed, transparent documentation to improve your project's chance of receiving community support");
 
   const toast = useToast();
   const { address, isConnected } = useAccount();
@@ -666,14 +666,14 @@ try {
           >
             <VStack spacing={6} align="stretch">
               <Heading
-                size="xl"
+                size={{ base: "lg", md: "xl" }}
                 color={textColor}
                 textAlign="center"
                 fontFamily="Poppins, sans-serif"
                 fontWeight="extrabold"
                 textShadow="0 0.5px 0.5px rgba(0, 0, 0, 0.8)"
               >
-                Launch Your Project
+                Submit Your Public Goods Project
               </Heading>
 
               <FormControl>
@@ -863,7 +863,7 @@ try {
               )}
 
               <Text fontSize="sm" color={subTextColor} fontFamily="Poppins, sans-serif">
-                Thankyou for using Creova!
+                Thank you for contributing to the future of open, community-led funding.
               </Text>
               {gasEstimate && <Text fontSize="sm" color={subTextColor}>Estimated Gas: {gasEstimate} ETH</Text>}
 

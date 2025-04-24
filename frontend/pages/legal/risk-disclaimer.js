@@ -4,7 +4,7 @@ import { Box, Text, Link } from "@chakra-ui/react";
 export default function RiskDisclaimer() {
   return (
     <Box pt={20} mt={24} py={10} pX={8} maxW="container.xl" mx="auto">      <Text fontSize="3xl" fontWeight="bold" mb={6} color="gray.900">
-        Creova Risk Disclaimer
+        Risk Disclaimer & Platform Participation Terms
       </Text>
       <Text fontSize="sm" mb={4}>
         Last Updated: 17 March 2025
@@ -15,7 +15,7 @@ export default function RiskDisclaimer() {
           1. Introduction
         </Text>
         <Text fontSize="md">
-          This Risk Disclaimer (“Disclaimer”) is issued by Creova (“we,” “us,” or “our”), a decentralised Web3 funding platform operated by [Creova Group Ltd], a [company] registered in [England/Wales/Scotland/Northern Ireland, Registration Number if applicable]. The Disclaimer outlines the inherent risks of using our platform (“Platform”) for crowdfunding, treasury grants, and cryptocurrency transactions via smart contracts deployed on the Ethereum blockchain at [insert contract address]. By accessing or using the Platform, you acknowledge and accept these risks in full.
+          This Risk Disclaimer (“Disclaimer”) is issued by Creova (“we,” “us,” or “our”), a decentralised Web3 funding platform operated by [Creova Group Ltd], a [company] registered in [England/Wales/Scotland/Northern Ireland, Registration Number if applicable]. This Disclaimer outlines the inherent risks of using our platform (“Platform”) for community-driven, non-commercial funding via treasury grants and crowdfunding powered by smart contracts deployed on the Ethereum blockchain at [insert contract address]. By accessing or using the Platform, you acknowledge and accept these risks in full.
         </Text>
       </Box>
 
@@ -52,7 +52,7 @@ export default function RiskDisclaimer() {
           4. Project & Funding Risks
         </Text>
         <Text fontSize="md">
-          Participation in crowdfunding or treasury grants on Creova carries the following risks:
+          Participation in public goods crowdfunding or treasury grants on Creova carries the following risks:
         </Text>
         <Text fontSize="md" as="ul" pl={6} listStyleType="disc">
           <Text as="li">No Guaranteed Outcomes: Contributions to projects do not guarantee financial returns, rewards, or successful completion. Funding is at your own risk.</Text>
@@ -110,7 +110,7 @@ export default function RiskDisclaimer() {
           By using Creova, you agree that:
         </Text>
         <Text fontSize="md" as="ul" pl={6} listStyleType="disc">
-          <Text as="li">You fully understand the risks associated with decentralised crowdfunding, treasury grants, and blockchain transactions.</Text>
+          <Text as="li">You fully understand the risks associated with decentralised public goods funding, treasury grants, and blockchain-based transactions.</Text>
           <Text as="li">You accept sole responsibility for your funding decisions and participation in the Platform.</Text>
           <Text as="li">You will not hold Creova, its operators, or affiliates liable for any losses incurred from using the Platform.</Text>
         </Text>

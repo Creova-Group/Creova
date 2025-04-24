@@ -338,10 +338,10 @@ export default function AdminPage() {
         <Container maxW="container.md" textAlign="center">
           <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
             <Heading as="h1" size="2xl" color="white" textShadow="0 4px 6px rgba(0, 0, 0, 0.8)" fontFamily="Poppins, sans-serif" mb={6}>
-              Admin Panel
+              Community Governance Dashboard
             </Heading>
             <Text color="white" fontSize="lg" fontFamily="Poppins, sans-serif">
-              {isConnecting ? "Connecting to your wallet..." : "Please connect your wallet to access the admin panel."}
+              {isConnecting ? "Connecting to your wallet..." : "Please connect your wallet to access the community governance dashboard."}
             </Text>
             {isConnecting && (
               <Flex justify="center" mt={4}>
@@ -361,10 +361,10 @@ export default function AdminPage() {
         <Container maxW="container.md" textAlign="center">
           <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
             <Heading as="h1" size="2xl" color="white" textShadow="0 4px 6px rgba(0, 0, 0, 0.8)" fontFamily="Poppins, sans-serif" mb={6}>
-              Access Denied
+              Restricted Access
             </Heading>
             <Text color="white" fontSize="lg" fontFamily="Poppins, sans-serif" mb={4}>
-              Only the contract owner can access this page.
+              Only the treasury administrator can access this dashboard.
             </Text>
             <Text color="white" fontSize="sm" fontFamily="Poppins, sans-serif">
               Contract Owner: {ownerAddress ? `${ownerAddress.slice(0, 6)}...${ownerAddress.slice(-4)}` : "Loading..."}
@@ -384,7 +384,7 @@ export default function AdminPage() {
       <Container maxW="container.xl" py={12} textAlign="center">
         <MotionBox initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}>
           <Heading as="h1" size={{ base: "xl", md: "3xl" }} fontWeight="extrabold" color="white" lineHeight={1.3} textShadow="0 4px 12px rgba(0, 0, 0, 0.8)" letterSpacing="0.5px" fontFamily="Poppins, sans-serif" mb={8}>
-            Admin Panel
+            Community Governance Dashboard
           </Heading>
         </MotionBox>
 

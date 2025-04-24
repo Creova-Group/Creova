@@ -4,7 +4,7 @@ import { Box, Text, Link } from "@chakra-ui/react";
 export default function PrivacyPolicy() {
   return (
     <Box pt={20} mt={24} py={10} pX={8} maxW="container.xl" mx="auto">      <Text fontSize="3xl" fontWeight="bold" mb={6} color="gray.900">
-        Creova Privacy Policy
+        Privacy Policy & Data Practices
       </Text>
       <Text fontSize="sm" mb={4}>
         Last Updated: 17 March 2025
@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
           1. Introduction
         </Text>
         <Text fontSize="md">
-          Creova ("we," "us," or "our") is a decentralised Web3 funding platform
+          Creova ("we," "us," or "our") is an Ethereum-native platform for supporting public goods
           operated by [Creova Group Ltd], a [company]
           registered in [England/Wales/Scotland/Northern Ireland, Registration
           Number if applicable]. We are committed to protecting your privacy
@@ -25,9 +25,8 @@ export default function PrivacyPolicy() {
         </Text>
         <Text fontSize="md" mt={2}>
           This Privacy Policy explains how we collect, use, store, and protect
-          your personal data when you use our platform ("Platform") to fund,
-          create, or manage high-impact projects through crowdfunding and
-          treasury grants. It applies to all users, including funders, project
+          your personal data when you use our platform ("Platform") to participate in community-driven,
+          non-commercial funding for public goods. It applies to all users, including funders, project
           creators, and treasury grant applicants. By accessing or using the
           Platform, you consent to the data practices described herein. If you
           do not agree, please do not use the Platform.

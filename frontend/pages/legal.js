@@ -8,7 +8,7 @@ export default function Legal() {
       <Flex justify="center" align="center" direction="column">
         <Box bg="white" boxShadow="2xl" borderRadius="lg" p={8} w="full" maxW="3xl" transform="scale(1)" transition="all 0.3s ease-in-out" _hover={{ transform: "scale(1.02)", boxShadow: "dark-lg" }}>
           <Text fontSize="3xl" fontWeight="bold" mb={6} color="gray.900" textAlign="center">
-            Legal and Compliance
+            Legal, Governance and Transparency
           </Text>
           <Stack spacing={4} textAlign="center">
             <Link

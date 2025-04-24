@@ -255,7 +255,7 @@ export default function Home() {
                 fontFamily="Poppins, sans-serif"
                 px={{ base: 2, md: 0 }}
               >
-                High Impact Funding Without Gatekeepers
+                Community-Powered Support for Open Projects
               </Heading>
             </MotionBox>
             <MotionBox initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}>
@@ -268,7 +268,7 @@ export default function Home() {
                 textShadow={useColorModeValue("0 2px 6px rgba(0, 0, 0, 0.8)", "0 2px 6px rgba(0, 0, 0, 0.9)")}
                 px={{ base: 2, md: 0 }}
               >
-                Launch your project fast. Rally your community. Raise ETH from the crowd—or secure a Treasury Grant from our DAO.
+                Share your idea. Rally your community. Receive transparent, milestone-based support through Ethereum-native tools.
               </Text>
             </MotionBox>
             <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }}>
@@ -336,46 +336,6 @@ export default function Home() {
         </MotionBox>
       </MotionBox>
 
-      {/* Gitcoin Grant 23 Banner */}
-      <Flex
-        w="100vw"
-        bg={useColorModeValue("white", "gray.800")}
-        py={2}
-        px={4}
-        justify="center"
-        align="center"
-        textAlign="center"
-        boxShadow={`0 4px 12px ${shadowColor}`}
-        border="1px solid"
-        borderColor={useColorModeValue("teal.300", "teal.700")}
-      >
-        <HStack spacing={3}>
-          <Image
-            src="/gitcoin-logo.png"
-            alt="Gitcoin Logo"
-            boxSize="20px"
-            objectFit="contain"
-          />
-          <Text
-            fontSize={{ base: "sm", md: "md" }}
-            color={textColor}
-            fontWeight="medium"
-            fontFamily="Poppins, sans-serif"
-          >
-            Creova is participating in Gitcoin Grant 23!{" "}
-            <Link
-              href="https://explorer.gitcoin.co/#/round/42161/867/76"
-              isExternal
-              color={useColorModeValue("teal.600", "teal.200")}
-              fontWeight="bold"
-              _hover={{ textDecoration: "underline" }}
-            >
-              Donate
-            </Link>{" "}
-            to support Creova on Gitcoin Grant 23. April 2, 2025 - April 16, 2025.
-          </Text>
-        </HStack>
-      </Flex>
 
       {/* Two Ways to Fund Your Vision */}
       <Container maxW="container.xl" py={14} mt={22}>
@@ -397,12 +357,12 @@ export default function Home() {
             {
               icon: FaUsers,
               title: "Crowdfunding",
-              text: "Raise ETH from supporters worldwide.",
+              text: "Receive community contributions for your open project.",
             },
             {
               icon: FaCoins,
               title: "Treasury Grants",
-              text: "Secure milestone-based funding from Creova’s community treasury.",
+              text: "Apply for non-commercial, milestone-based support through the community treasury.",
             },
           ].map((item, index) => (
             <MotionBox
@@ -455,16 +415,32 @@ export default function Home() {
         {
           title: "How Creova Works",
           items: [
-            { icon: FaCheckCircle, title: "1. Pick Your Path", text: "Crowdfund or pitch for a grant." },
-            { icon: FaVoteYea, title: "2. Submit Your Vision", text: "Share your project with our DAO." },
-            { icon: FaCoins, title: "3. Get Funded Fast", text: "Receive ETH directly via smart contracts." },
-            { icon: FaArrowRight, title: "4. Build & Scale", text: "Meet milestones to unlock ongoing support." },
+            {
+              icon: FaCheckCircle,
+              title: "Step 1: Choose a Funding Path",
+              text: "Crowdfunding or a community-backed treasury grant.",
+            },
+            {
+              icon: FaVoteYea,
+              title: "Step 2: Submit Your Proposal",
+              text: "Share your public goods project with the Creova community.",
+            },
+            {
+              icon: FaCoins,
+              title: "Step 3: Secure Transparent Support",
+              text: "All funding is milestone-based and verifiable on-chain.",
+            },
+            {
+              icon: FaArrowRight,
+              title: "Step 4: Deliver & Grow Impact",
+              text: "Meet goals to unlock ongoing support from the community.",
+            },
           ],
         },
         {
           title: "What Makes Us Different?",
           items: [
-            { icon: FaBolt, title: "Instant Funding", text: "ETH hits your wallet via blockchain, no delays." },
+            { icon: FaBolt, title: "Transparent Delivery", text: "All funding is verifiable on-chain and milestone-based." },
             { icon: FaUsers, title: "Community-Led", text: "Our DAO decides, fully transparent." },
             { icon: FaDollarSign, title: "No Gatekeepers", text: "Direct funding with low fees, full control." },
             { icon: FaLock, title: "Blockchain-Backed", text: "Smart contracts lock in trust and transparency." },
@@ -614,23 +590,23 @@ export default function Home() {
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
           {[
             {
-              quote: "“Decentralized systems can fund public goods without gatekeepers—blockchain lets us coordinate value creation at scale.”",
+              quote: "“Quadratic funding and retroactive public goods funding... could be some of the most important experiments Ethereum helps launch.”",
               name: "Vitalik Buterin",
               title: "Ethereum Co-Founder",
               badge: "/ethereum-logo.png",
             },
             {
-              quote: "“The future of the web is decentralized infrastructure—where creators own their work and users control their data.”",
-              name: "Juan Benet",
-              title: "Founder, IPFS & Filecoin",
-              badge: "/ipfs-logo.png",
+              quote: "“The best way to fund public goods is to create incentives that align individual benefit with collective benefit.”",
+              name: "Kevin Owocki",
+              title: "Founder, Gitcoin",
+              badge: "/gitcoin-logo.png",
             },
             {
-              quote: "“Scaling Ethereum means scaling opportunity—making Web3 accessible to everyone, everywhere.”",
-              name: "Mihailo Bjelic",
-              title: "Polygon Co-Founder",
-              badge: "/polygon-logo.png",
-            },
+              quote: "“Retroactive public goods funding lets you reward people for the good they already did. It changes the funding equation.”",
+              name: "Kris Jaffray",
+              title: "Optimism RetroPGF Contributor",
+              badge: "/optimism-logo.png",
+            }
           ].map((testimonial, idx) => (
             <MotionBox
               key={idx}
@@ -694,7 +670,7 @@ export default function Home() {
           Creova’s Impact So Far
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
+        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={8}>
           <MotionBox
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -737,6 +713,20 @@ export default function Home() {
             </Heading>
             <Text color={subTextColor}>Creova Members</Text>
           </MotionBox>
+          <MotionBox
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            bg={cardBg}
+            p={8}
+            borderRadius="3xl"
+            boxShadow={`0 12px 32px ${shadowColor}`}
+          >
+            <Heading size="xl" color={useColorModeValue("teal.500", "teal.300")} fontFamily="Poppins, sans-serif">
+              <StatNumber endValue={72} suffix="%" />
+            </Heading>
+            <Text color={subTextColor}>Public Goods Projects</Text>
+          </MotionBox>
         </SimpleGrid>
       </Container>
 
@@ -753,10 +743,10 @@ export default function Home() {
         >
           <Box textAlign={{ base: "center", md: "left" }}>
             <Heading as="h2" size="xl" mb={4} color={textColor} fontFamily="Poppins, sans-serif" lineHeight={1.3}>
-              Let's Build Your Vision Now
+              Ready to Support Open Innovation?
             </Heading>
             <Text fontSize="lg" color={subTextColor}>
-              Got an idea or question? Contact us today—we’re ready to back your vision.
+              Got an idea that serves the public good? We're here to support transparent, community-led innovation on Ethereum.
             </Text>
           </Box>
           <Button

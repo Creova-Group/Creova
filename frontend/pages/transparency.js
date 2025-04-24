@@ -390,7 +390,7 @@ export default function Transparency() {
             textShadow="0 4px 6px rgba(0, 0, 0, 0.8)" 
             mb={4}
           >
-            Creova Transparency Dashboard
+            Ethereum-Powered Transparency Dashboard
           </Heading>
           <Text 
             fontSize={{ base: "md", md: "lg" }} 
@@ -400,7 +400,7 @@ export default function Transparency() {
             mx="auto" 
             textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
           >
-            A transparent view into Creova’s decentralised funding ecosystem. All funding activity on Creova is recorded on-chain. This dashboard shows real-time data from our smart contracts and treasury.
+            Explore real-time, on-chain funding data for community-driven, non-commercial projects. This dashboard highlights transparent activity across Creova’s Ethereum-powered public goods ecosystem.
           </Text>
         </MotionBox>
 
@@ -415,7 +415,7 @@ export default function Transparency() {
           mb={6} 
           textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
         >
-          
+          Funding data shown here includes Treasury Grants and Crowdfunding contributions to projects building open infrastructure, educational tools, sustainability initiatives and other high-impact public goods.
         </Text>
 
         {uiState.error && (

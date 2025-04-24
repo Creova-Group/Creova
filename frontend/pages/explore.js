@@ -177,7 +177,7 @@ export default function Explore() {
             fontFamily="Poppins, sans-serif"
             mb={4}
           >
-            Discover All Creova Projects
+            Explore Community-Led Public Goods Projects
           </Heading>
           <Text
             fontSize={{ base: "md", md: "lg" }}
@@ -187,7 +187,7 @@ export default function Explore() {
             mx="auto"
             textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
           >
-            Support innovative, community-driven projects powered by Creova’s decentralised funding.
+            Discover and support impactful, open-source projects funded transparently through the Ethereum ecosystem.
           </Text>
         </MotionBox>
 
@@ -453,7 +453,7 @@ export default function Explore() {
             mt={10}
           >
             <Text fontSize="lg" color={subTextColor}>
-              No projects found. Be the first to launch your high impact project with Creova!
+              No projects found. Be the first to share your mission and engage the community through Creova.
             </Text>
           </MotionBox>
         )}

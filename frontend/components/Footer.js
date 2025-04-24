@@ -50,7 +50,7 @@ export default function Footer() {
             fallback={<Text fontSize="2xl" fontWeight="bold" color={textColor}>Creova</Text>}
           />
           <Text fontSize="md">
-            Transparent Funding, Transformative Impact
+            Transparent Funding for Public Goods on Ethereum
           </Text>
         </Box>
 
@@ -105,7 +105,7 @@ export default function Footer() {
             fontSize="sm" 
             _hover={{ color: hoverColor }}
           >
-            Legal and Compliance
+            Legal, Governance & Transparency
           </Link>
         </Stack>
       </Flex>

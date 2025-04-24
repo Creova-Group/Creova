@@ -56,7 +56,7 @@ export default function About() {
             fontFamily="Poppins, sans-serif"
             px={{ base: 2, md: 0 }}
           >
-            Funding High-Impact Projects, Community Empowered
+            Empowering Community-Led Public Goods Projects
           </Heading>
           <Text
             fontSize={{ base: "sm", md: "lg" }}
@@ -68,7 +68,7 @@ export default function About() {
             textShadow={useColorModeValue("0 2px 4px rgba(0, 0, 0, 0.8)", "0 2px 6px rgba(0, 0, 0, 0.9)")}
             px={{ base: 2, md: 0 }}
           >
-            Creova drives <strong>high-impact projects</strong> with decentralised, transparent, and instant Web3 funding. From renewable energy to education, we empower creators to make a difference—without gatekeepers.
+            Creova supports <strong>public goods projects</strong> with decentralised, transparent, community-driven funding. From climate action to open-source tools, we empower builders to make a difference without middlemen.
           </Text>
           <HStack
             spacing={{ base: 4, md: 5 }}
@@ -146,7 +146,7 @@ export default function About() {
           {[
             { icon: FaKey, title: "1. Choose Your Funding Path", text: "Crowdfunding or Treasury Grants for high-impact initiatives." },
             { icon: FaBalanceScale, title: "2. Transparent Approval", text: "Community votes ensure only impactful projects succeed." },
-            { icon: FaCoins, title: "3. Instant Funding", text: "Blockchain delivers funds fast to drive real change." },
+            { icon: FaCoins, title: "3. Transparent Distribution", text: "Smart contracts enable milestone-based funding that’s verifiable and secure." },
           ].map((item, idx) => (
             <MotionBox
               key={idx}
@@ -201,11 +201,10 @@ export default function About() {
           How Creova Sustains Itself
           <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={8}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} justifyItems="center">
           {[
             { icon: FaCoins, title: "Success-Based Fees", text: "5% fee on crowdfunding fuels impactful growth." },
             { icon: FaRocket, title: "Premium Memberships", text: "Tools for creators to maximize impact.    COMING SOON" },
-            { icon: FaHandshake, title: "Tokenised Revenue", text: "Share success with your community.    COMING SOON" },
             { icon: FaBalanceScale, title: "Controlled Grants", text: "10% of treasury supports selected high-impact projects." },
           ].map((item, idx) => (
             <MotionBox
@@ -264,7 +263,7 @@ export default function About() {
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing={8}>
           {[
             { icon: FaLock, title: "Decentralised & Secure", text: "Smart contracts protect impactful missions." },
-            { icon: FaBolt, title: "Instant Funding", text: "Fast funds to ignite high-impact change." },
+            { icon: FaBolt, title: "Transparent Funding", text: "All funding is transparent, milestone-based, and publicly verifiable on-chain." },
             { icon: FaUsers, title: "Community Driven", text: "DAO votes prioritise real-world impact." },
             { icon: FaDollarSign, title: "No Hidden Fees", text: "Transparent costs for maximum impact." },
           ].map((item, idx) => (
@@ -341,11 +340,11 @@ export default function About() {
               color={subTextColor}
               lineHeight={1.7}
             >
-              Creova was born from a belief: that funding should be accessible, transparent, and owned by the people—not gated by VCs, banks, or traditional gatekeepers.
+              Creova was born from a belief: that open-source public goods and mission-driven projects deserve equitable, transparent support, free from commercial or financial barriers.
               <br /><br />
               We built Creova for creators, innovators, and changemakers who are building the future. Whether you’re launching a grassroots project or tackling global challenges, you shouldn’t need to chase investors to bring your ideas to life.
               <br /><br />
-              Our mission is to unlock decentralised capital for ideas that matter—using Web3 technology to fund the next wave of impact-driven projects.
+              Our mission is to unlock decentralised, community-led funding for ideas that serve the public good, using Ethereum technology to advance meaningful, lasting impact.
               <br /><br />
               No more middlemen. No more closed doors. Just open funding, powered by community, on-chain trust, and a fairer model for all.
             </Text>
@@ -371,9 +370,22 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
+          <Heading
+            as="h2"
+            size={{ base: "lg", md: "2xl" }}
+            fontWeight="bold"
+            color={textColor}
+            fontFamily="Poppins, sans-serif"
+            textAlign="center"
+            mb={10}
+            textShadow={`0 1px 3px ${shadowColor}`}
+          >
+            A Note from Our Founder
+            <Box mt={3} width="60px" height="4px" bgGradient="linear(to-r, teal.400, teal.500)" borderRadius="full" mx="auto" />
+          </Heading>
           <VStack
             spacing={4}
-            textAlign="left"
+            textAlign="center"
             bgGradient={founderCardGradient}
             p={{ base: 6, md: 8 }}
             borderRadius="2xl"
@@ -382,14 +394,18 @@ export default function About() {
             mx="auto"
           >
             <Text
-              fontSize={{ base: "sm", md: "md" }}
+              fontSize={{ base: "md", md: "lg" }}
               color={subTextColor}
-              lineHeight={1.6}
-              fontFamily="Inter, sans-serif" // New font
+              lineHeight={1.8}
+              fontFamily="Inter, sans-serif"
+              textAlign="center"
+              maxW="800px"
+              mx="auto"
+              px={{ base: 4, md: 6 }}
             >
               "I started Creova because I believe funding should be open to everyone—not just those with connections. Too often, bold ideas are sidelined by a system not built for them. Creova changes that.
               <br /><br />
-              It’s a platform for dreamers and doers—decentralised, transparent, and community-driven. This isn’t just funding; it’s a new way to empower impact.
+              It’s a platform for dreamers and doers. It is transparent, community-powered, and grounded in open collaboration. This isn’t about tokens or hype. It’s about building lasting impact with integrity.
               <br /><br />
               If you’re building something meaningful, Creova is for you."
             </Text>
@@ -426,10 +442,10 @@ export default function About() {
         >
           <Box textAlign={{ base: "center", md: "left" }}>
             <Heading as="h2" size={{ base: "lg", md: "xl" }} mb={4} color={textColor} fontFamily="Poppins, sans-serif">
-              Ready to Drive Impact?
+              Ready to Support Community Innovation?
             </Heading>
             <Text fontSize={{ base: "md", md: "lg" }} color={subTextColor}>
-              Launch your high-impact project with Creova today.
+              Join Creova to support open, community-driven projects through decentralised funding.
             </Text>
           </Box>
           <Button

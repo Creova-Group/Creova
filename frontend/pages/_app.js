@@ -34,11 +34,11 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider theme={customChakraTheme}>
       <Head>
         <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon" />
-        <title>Creova - Decentralised Creator Funding</title>
+        <title>Creova - Public Goods Funding Platform</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="Creova empowers creators and innovators with decentralised, transparent, instant funding solutions powered by blockchain technology."
+          content="Creova is an open-source platform supporting transparent, milestone-based funding for public goods projects through the Ethereum ecosystem."
         />
       </Head>
       <WagmiConfig config={wagmiConfig}>

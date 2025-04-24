@@ -111,7 +111,7 @@ const Navbar = () => {
                     </Button>
                 </Link>
 
-                {/* Funding Dropdown */}
+                {/* Get Funded Dropdown */}
                 <Menu>
                     <MenuButton 
                         as={Button} 
@@ -122,7 +122,7 @@ const Navbar = () => {
                         color={buttonTextColor} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Funding
+                        Get Funded
                     </MenuButton>
                     <MenuList 
                         bg={menuBg} 
@@ -133,18 +133,18 @@ const Navbar = () => {
                             onClick={() => router.push("/funding")} 
                             _hover={{ bg: hoverBg, color: "white" }}
                         >
-                            Launch a Project
+                            Submit a Project
                         </MenuItem>
                         <MenuItem 
                             onClick={() => router.push("/grants")} 
                             _hover={{ bg: hoverBg, color: "white" }}
                         >
-                            Creova Grants
+                            Treasury Grants
                         </MenuItem>
                     </MenuList>
                 </Menu>
 
-                {/* Dashboard Dropdown */}
+                {/* Tools Dropdown */}
                 <Menu>
                     <MenuButton 
                         as={Button} 
@@ -155,7 +155,7 @@ const Navbar = () => {
                         color={buttonTextColor} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Dashboard
+                        Tools
                     </MenuButton>
                     <MenuList 
                         bg={menuBg} 
@@ -166,13 +166,13 @@ const Navbar = () => {
                             onClick={() => router.push("/dashboard")} 
                             _hover={{ bg: hoverBg, color: "white" }}
                         >
-                            Your Dashboard
+                            Project Dashboard
                         </MenuItem>
                         <MenuItem 
                             onClick={() => router.push("/transparency")} 
                             _hover={{ bg: hoverBg, color: "white" }}
                         >
-                            Transparency
+                            Treasury Transparency
                         </MenuItem>
                     </MenuList>
                 </Menu>
@@ -230,25 +230,25 @@ const Navbar = () => {
                         onClick={() => router.push("/funding")} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Launch a Project
+                        Submit a Project
                     </MenuItem>
                     <MenuItem 
                         onClick={() => router.push("/grants")} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Creova Grants
+                        Treasury Grants
                     </MenuItem>
                     <MenuItem 
                         onClick={() => router.push("/dashboard")} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Your Dashboard
+                        Project Dashboard
                     </MenuItem>
                     <MenuItem 
                         onClick={() => router.push("/transparency")} 
                         _hover={{ bg: hoverBg, color: "white" }}
                     >
-                        Transparency
+                        Treasury Transparency
                     </MenuItem>
                     {/* Connect Wallet for Mobile */}
                     <MenuItem as="div" closeOnSelect={false}>

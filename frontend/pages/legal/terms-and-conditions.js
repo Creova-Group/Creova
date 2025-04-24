@@ -4,7 +4,7 @@ import { Box, Text, Link } from "@chakra-ui/react";
 export default function TermsAndConditions() {
   return (
     <Box pt={20} mt={24} py={10} pX={8} maxW="container.xl" mx="auto">      <Text fontSize="3xl" fontWeight="bold" mb={6} color="gray.900">
-        Terms and Conditions
+        Platform Participation Terms & Conditions
       </Text>
       <Text fontSize="sm" mb={4}>
         Last updated: March 17, 2025
@@ -18,19 +18,14 @@ export default function TermsAndConditions() {
           Welcome to Creova ("we," "us," or "our"), a decentralised Web3 funding
           platform operated by [Creova Group Ltd], a [company]
           registered in [England/Wales/Scotland/Northern Ireland, Registration
-          Number if applicable]. Creova enables users to create, fund, and
-          manage High Impact Projects via crowdfunding and treasury grants
+          Number if applicable]. Creova enables users to support and manage public goods projects via crowdfunding and treasury grants
           through smart contracts deployed on the Ethereum blockchain at
           [0xF98a7F677cE887ABED858b594a0A728d84f98b38]. By accessing or using the Creova platform
           ("Platform"), you agree to these Terms & Conditions ("Terms"). If you
           do not agree, you must cease using the Platform immediately.
         </Text>
         <Text fontSize="md" mt={2}>
-          High Impact Projects: Projects that deliver significant social,
-          environmental, technological, or economic benefits, as determined by
-          Creova in its sole discretion. Examples include renewable energy
-          initiatives, open-source software for public good, or
-          community-driven infrastructure.
+          Public Goods Projects: Projects that create open, non-commercial benefits for communities, including educational tools, sustainability initiatives, or open-source software.
         </Text>
       </Box>
 
@@ -79,13 +74,11 @@ export default function TermsAndConditions() {
           4. Nature of Services
         </Text>
         <Text fontSize="md">
-          Crowdfunding: Users ("Funders") may contribute ETH to High Impact
-          Projects created by other users ("Creators"). Creova does not
+          Crowdfunding: Users ("Funders") may contribute ETH to public goods projects initiated by other users ("Creators"). Creova does not
           guarantee project completion or success.
         </Text>
         <Text fontSize="md" mt={2}>
-          Treasury Grants: Eligible Creators may apply for funding from the
-          Creova treasury for High Impact Projects, subject to approval by
+          Treasury Grants: Eligible Creators may apply for support from the Creova treasury for public goods projects, subject to approval by
           designated voters or administrators.
         </Text>
         <Text fontSize="md" mt={2}>

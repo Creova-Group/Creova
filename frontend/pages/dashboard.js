@@ -572,7 +572,7 @@ export default function Dashboard() {
             fontFamily="Poppins, sans-serif" 
             mb={4}
           >
-            Your Project Dashboard
+            Your Public Goods Dashboard
           </Heading>
           <Text 
             fontSize={{ base: "md", md: "lg" }} 
@@ -582,7 +582,7 @@ export default function Dashboard() {
             mx="auto" 
             textShadow="0 2px 4px rgba(0, 0, 0, 0.8)"
           >
-            Track your contributions, projects, and community impact in real-time.
+            Monitor your contributions, funding activity, and community-aligned projects with transparency.
           </Text>
         </MotionBox>
 
@@ -702,7 +702,7 @@ export default function Dashboard() {
             </SimpleGrid>
             {searchedProjects.length === 0 && (
               <Text color="white" textAlign="center" py={4}>
-                No projects found. Start creating with Creova today!
+                No projects found. Share your vision and help build the future of decentralised public goods.
               </Text>
             )}
           </Box>
